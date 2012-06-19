@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.1">
+	<plugin>
+		<version>0.2</version>
+		<name>IM Plug-in</name>
+		<description>This plug-in is only for members of I-ON Communications
+			Co,Ltd.</description>
+		<provider>
+			<homepage>http://www.i-on.net</homepage>
+			<developer>airkjh</developer>
+			<email>airkjh@i-on.net</email>
+		</provider>
+		<license>LGPL</license>
+	</plugin>
+
+	<section name="im">
+		<context>
+			<attribute id="let.contact.email">airkjh@i-on.net</attribute>
+			<attribute id="let.contact.help.doc">/help/doc</attribute>
+			<attribute id="let.upload.path.logical">data</attribute>
+			<attribute id="let.upload.path.physical">c:/zeroboard/</attribute>
+
+			<connection id="connection.mysql.im">
+				<database-controller>
+					<controller-name>imDB</controller-name>
+					<database-manager>
+						<description>MySQL DB Manager</description>
+						<configured-object>
+							<class-name>net.ion.framework.db.manager.MySqlDBManager
+							</class-name>
+							<constructor>
+								<constructor-param>
+									<description>jdbc URL</description>
+									<type>java.lang.String</type>
+									<value>jdbc:mysql://61.250.201.66:3306/im
+								</value>
+								</constructor-param>
+								<constructor-param>
+									<description>User</description>
+									<type>java.lang.String</type>
+									<value>root</value>
+								</constructor-param>
+								<constructor-param>
+									<description>Passwd</description>
+									<type>java.lang.String</type>
+									<value>apmsetup</value>
+								</constructor-param>
+								<!--
+									<constructor-param> <description>ConnectionLimit</description>
+									<type>int</type> <value>100</value> </constructor-param>
+								-->
+							</constructor>
+						</configured-object>
+
+					</database-manager>
+					<limited-rows>10000</limited-rows>
+					<extra-servant>
+						<configured-object>
+							<class-name>net.ion.framework.db.servant.StdOutServant
+							</class-name>
+							<constructor>
+								<constructor-param>
+									<description>show std out (userProcedure : 1, userCommand : 2,
+										userProcedureBatch : 4, userProcedures : 8 )</description>
+									<type>int</type>
+									<value>15</value>
+								</constructor-param>
+							</constructor>
+						</configured-object>
+					</extra-servant>
+				</database-controller>
+			</connection>
+
+			<configured-object id="boardActionUrl.config"
+				scope="application">
+				<class-name>net.ion.im.bbs.URLConfigLoader</class-name>
+				<constructor>
+					<constructor-param>
+						<description>Board Action URL property file</description>
+						<type>java.lang.String</type>
+						<value>plugin/im.bbs/board-action-url.properties</value>
+					</constructor-param>
+				</constructor>
+			</configured-object>
+			
+			<configured-object id="ldap.entry" scope="application">
+				<class-name>net.ion.im.bbs.ldap.LDAPEntry</class-name>
+				<constructor>
+					<constructor-param>
+						<description>LDAP Server Address</description>
+						<type>java.lang.String</type>
+						<value>ldap.i-on.net</value>
+					</constructor-param>
+					<constructor-param>
+						<description>LDAP Server Port</description>
+						<type>java.lang.Integer</type>
+						<value>389</value>
+					</constructor-param>
+					<constructor-param>
+						<description>LDAP Server BaseDN</description>
+						<type>java.lang.String</type>
+						<value>dc=i-on\,dc=net</value>
+					</constructor-param>
+				</constructor>
+			</configured-object>
+			
+			<configured-object id="log.viewer" scope="application">
+				<class-name>net.ion.im.bbs.util.Tail</class-name>
+				<constructor>
+					<constructor-param>
+						<description>LogFilePath</description>
+						<type>java.lang.String</type>
+						<value><![CDATA[c:/CheckForNewUpdates.java]]></value>
+					</constructor-param>
+				</constructor>
+			</configured-object>			
+		</context>
+
+		<path name="default">
+			<urls>/hello</urls>
+			<description>Default</description>
+			<handler class="net.ion.radon.impl.let.HelloWorldLet" scope="request" />
+		</path>
+		
+		<path name="bbs_list">
+			<context>
+				<configured-object id="boardList.config" scope="application">
+					<class-name>net.ion.im.bbs.board.BoardListLoader</class-name>
+					<constructor>
+						<constructor-param>
+							<description>config JSON filePath</description>
+							<type>java.lang.String</type>
+							<value>plugin/im.bbs/bbs-list.json</value>
+						</constructor-param>
+						<constructor-param>
+							<description>return object class name</description>
+							<type>java.lang.String</type>
+							<value>net.ion.im.bbs.BoardGroup</value>
+						</constructor-param>
+					</constructor>
+				</configured-object>
+			</context>
+
+			<urls>/boards</urls>
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<handler class="net.ion.im.bbs.board.BoardLet" />
+		</path>
+
+		<path name="article_list">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/bbs/{bbsId}/list, /bbs/{bbsId}/list/{listNum}/{pageNo}</urls>
+			<handler class="net.ion.im.bbs.board.BoardListLet" />
+		</path>
+
+		<path name="article_action">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/bbs/{bbsId}, /bbs/{bbsId}/{contentId}</urls>
+			<handler class="net.ion.im.bbs.board.BoardActionLet" />
+		</path>
+
+		<path name="comment">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/bbs/{bbsId}/{contentId}/comment,
+				/bbs/{bbsId}/{contentId}/comment/{commentId},
+				/cal/{bbsId}/{contentId}/comment,
+				/cal/{bbsId}/comment/{contentId}</urls>
+			<handler class="net.ion.im.bbs.board.BoardCommentLet" />
+			<description>
+				/bbs/{bbsId}/{contentId}/comment , POST ==> 답글 작성
+				/bbs/{bbsId}/{contentId}/comment , GET ==> 답글 목록 보기
+				/bbs/{bbsId}/{contentId}/comment/{commentId} , PUT ==> 답글 수정
+				/bbs/{bbsId}/{contentId}/comment/{commentId} , DELETE ==> 답글 삭제
+			</description>
+		</path>
+
+		<path name="login">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/login</urls>
+			<handler class="net.ion.im.bbs.LoginLet" />
+		</path>
+
+		<path name="calendar_list">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/cal/list/{bbsId}, /cal/list/{bbsId}/{date}</urls>
+			<handler class="net.ion.im.bbs.calendar.CalendarListLet" />
+		</path>
+
+		<path name="calendar_action">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/cal/{bbsId}, /cal/{bbsId}/{contentId}</urls>
+			<handler class="net.ion.im.bbs.board.BoardActionLet" />
+		</path>
+
+		<path name="ldap">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/contacts, /contacts/contact/{id},
+				/contacts/search/{search_text}</urls>
+			<description>
+				/contacts/ : 전체 주소록
+				/contacts/contact/{id} : 특정 ID의 정보
+				가져오기 ( Post )
+				/contacts/search/{search_text} : 이름으로 검색하기
+			</description>
+			<handler class="net.ion.im.bbs.ldap.LDAPSearchLet" />
+		</path>
+
+		<path name="category">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/category/{bbsId}</urls>
+			<description>
+				/bbs/category/{bbsId} , GET ==> 해당 게시판의 분류 ( category )
+				목록 가져오기 
+			</description>
+			<handler class="net.ion.im.bbs.board.CategoryListLet" />
+		</path>
+
+		<path name="search">
+			<prefilter class="net.ion.im.bbs.filter.AuthenticationFilter" />
+			<urls>/bbs/{bbsId}/search/{searchText}</urls>
+			<description>
+				/bbs/{bbsId}/search/{searchText} , GET ==> 해당 게시판을 이름,
+				제목, 내용으로 searchText 검색 
+			</description>
+			<handler class="net.ion.im.bbs.board.BoardSearchLet" />
+		</path>
+		
+		<path name="download">
+			<urls>/download/{bbsId}/{contentId}/{fileNum}</urls>
+			<description>
+				GET : {fileNum} ==> 1 or 2 ( 첨부파일 1번 혹은 2번)
+			</description>
+			<handler class="net.ion.im.bbs.board.DownloadLet" />
+		</path>
+		
+	</section>
+</root>

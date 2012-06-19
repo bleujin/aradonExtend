@@ -1,0 +1,36 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+
+	<section name="extract">
+		<context>
+			<configured-object id="extract.config" scope="application">
+			<class-name>net.ion.radon.impl.let.extract.ExtractConfigLoader</class-name>
+			 	<constructor>
+             	<constructor-param>
+                    <description>config filePath</description>
+                    <type>java.lang.String</type>
+                    <!-- <value>${BASEPATH}/default.cfg</value> -->
+                    <value>src/radon.system/default.cfg</value>
+                </constructor-param>
+				<constructor-param>
+                    <description>filter root execute filePath</description>
+                    <type>java.lang.String</type>
+                    <value>./</value>
+                </constructor-param>
+             	</constructor>
+			</configured-object>
+		</context>
+		
+		<path name="stream">
+			<urls  matchmode="STARTWITH">/stream</urls>
+			<handler class="net.ion.radon.impl.let.extract.StreamExtractorLet" />
+		</path>
+		
+		<path name="url">
+			<urls  matchmode="STARTWITH">/url</urls>
+			<handler class="net.ion.radon.impl.let.extract.UrlExtractorLet" />
+		</path>
+	</section>
+
+</root>

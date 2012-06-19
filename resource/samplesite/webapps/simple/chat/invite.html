@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>WebSocket Client Test</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+  <script src='https://raw.github.com/LiosK/UUID.js/master/src/uuid.js'></script> 
+  <script>
+  	var ws;
+  	var url = "ws://localhost:9000/;timeout=360000" ;
+  	var requestId = "anonymous" ;
+  	var roomId = '';
+  	$(function() {
+  		$('#msgBox').hide();
+  	});
+	function connect(sendMessage) {
+		//alert('jquery..');
+		ws = new WebSocket(url);
+		ws.onopen = function(event) { 
+			$('#result').text("The WebSocket Connection Is Open.");
+				ws.send(sendMessage) ;
+				$('#msgBox').show();
+			} ;
+		ws.onmessage = function(event) { 
+				console.warn(event.data) ;
+				$('#result').text("Result= "+event.data);
+				var obj = eval('(' + event.data + ')');
+				if (obj.body.message) {
+					var target = obj.head.requestid ? obj.head.requestid : obj.head.command;
+					$('#msgBox').append(target + ' : ' + obj.body.message + '<br/>');
+				}
+			} ;
+		ws.onclose = function(event) { $('#status').text("The WebSocket Connection Has Been Closed."); }
+	};
+  	
+  	function invite() {
+  		if (! $("input:checked")){
+  			alert("not defined user");
+  			return ;
+  		}
+  		
+  		var userList = ''
+  		$("input:checked").each(function(){
+  			userList += $(this).val() + ';' ;
+  		}) ;
+
+  		if (roomId == '') {
+  			roomId = UUID.generate() ;
+  		}
+		var invite = "{head:{command:'INVITE',requestid:'" + requestId + "'}, body:{target:'" + userList + "',room:{roomid:'" +roomId+ "'} }}";
+  		connect(invite) ;
+  	}
+  	
+  	function sendMessage() {
+  		var msg = $('#txtId').val();
+  		var json = "{head:{command:'CHAT',requestid:'" + requestId + "'},body:{room:{roomid:'" + roomId + "'},message:'" + msg + "'}}";
+  		ws.send(json)
+  		$('#msgBox').append(msg + '<br/>');
+  	}
+  </script>
+ </head>
+
+ <body>
+ 	My userid is anonymous
+ 	
+ 	<table border="1" width="400">
+ 		<tr><td width="10%"><input type="checkbox" name="target" value="bleujin" checked/></td>
+ 			<td width="80%">bleujin : Hi~</td></tr>
+ 		<tr><td><input type="checkbox" name="target" value="minato"/></td>
+ 			<td>minato : Hello</td></tr>
+ 		<tr><td><input type="checkbox" name="target" value="novision"/></td>
+ 			<td>novision : Bye</td></tr>
+ 			
+ 		<tr><td colspan="2"><input type="button" value="invite" onclick="invite();"></td></tr>
+ 	</table>
+ 	<br/>
+  <div id="msgBox" style="overflow-y:scroll; width:400px; height:200px; padding:10px;"></div><br/>
+  <input type="text" id="txtId" name="txtInput" value="hello..">
+  <input type="button" value="send" onclick="sendMessage();">
+  <br/>
+  <br/>
+  <div id="result"></div>
+  
+ </body>
+</html>

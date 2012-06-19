@@ -1,0 +1,37 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+	<section name="rdb">
+		<context>
+		<configured-object id="my.mongodb.id" scope="application">
+			<class-name>net.ion.radon.impl.let.icss.ICSSRepositoryCentral</class-name>
+		 	<constructor>
+	           	<constructor-param>
+	               	<description></description>
+	               	<type>java.lang.String</type>
+	               	<value>127.0.0.1</value>
+	            </constructor-param>
+				<constructor-param>
+	                <description>return object class name</description>
+	                <type>int</type>
+	                <value>27017</value>
+				</constructor-param>
+	        </constructor>
+	        <!-- call method="addMonitor" -->
+		</configured-object>
+		</context>
+		
+		<path name="query">
+			<urls>/query</urls>
+			<description>Default</description>
+			<handler class="net.ion.radon.impl.let.icss.QueryLet" scope="request" />
+		</path>
+		
+		<path name="update">
+			<urls>/update</urls>
+			<description>Default</description>
+			<handler class="net.ion.radon.impl.let.icss.UpdateLet" scope="request" />
+		</path>
+	</section>
+
+</root>

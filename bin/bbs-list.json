@@ -1,0 +1,119 @@
+{
+	boards : [
+		{
+			id   : "notice",
+			name : "공지 사항",
+			uri  : "/bbs/notice"
+		},
+		{
+			id   : "hr",
+			name : "채용 공지",
+			uri  : "/bbs/hr"
+		},
+		{
+			id   : "qa",
+			name : "QM팀 공지",
+			uri  : "/bbs/qa"
+		},
+		{
+			id   : "marketing",
+			name : "M&S공지",
+			uri  : "/bbs/marketing"
+		},
+		{
+			id   : "newscrap",
+			name : "뉴스 스크랩",
+			uri  : "/bbs/newscrap"
+		},
+		{
+			id   : "qna",
+			name : "업무 관련 FAQ",
+			uri  : "/bbs/qna"
+		},
+		{
+			id   : "news",
+			name : "뉴스",
+			uri  : "/bbs/news"
+		},
+		{
+			id   : "request",
+			name : "요청[업무환경]",
+			uri  : "/bbs/request"
+		},
+		{
+			id   : "pds",
+			name : "자료실[일반]",
+			uri  : "/bbs/pds"
+		},
+		{
+			id   : "image",
+			name : "자료실[사진]",
+			uri  : "/bbs/image"
+		},
+		{
+			id   : "free",
+			name : "자유 게시판",
+			uri  : "/bbs/free"
+		},
+		{
+			id   : "imirenotice",
+			name : "사우회 공지",
+			uri  : "/bbs/imirenotice"
+		},
+		{
+			id   : "imirewant",
+			name : "사우회 게시판",
+			uri  : "/bbs/imirewant"
+		},
+		{
+			id   : "use",
+			name : "자랑/지름",
+			uri  : "/bbs/use"
+		},
+		{
+			id   : "09",
+			name : "장터/공동구매",
+			uri  : "/bbs/09"
+		},
+		{
+			id   : "ionfc",
+			name : "ION FC",
+			uri  : "/bbs/ionfc"
+		},
+		{
+			id   : "band",
+			name : "Megabreed",
+			uri  : "/bbs/band"
+		},
+		{
+			id   : "naksi",
+			name : "Pisces",
+			uri  : "/bbs/naksi"
+		},
+		{
+			id   : "forcus",
+			name : "iFocus",
+			uri  : "/bbs/forcus"
+		},
+		{
+			id   : "itr",
+			name : "ITR",
+			uri  : "/bbs/itr"
+		},
+		{
+			id   : "masil",
+			name : "참마실",
+			uri  : "/bbs/masil"
+		},
+		{
+			id   : "misarang",
+			name : "味사랑",
+			uri  : "/bbs/misarang"
+		},
+						{
+			id   : "iculture",
+			name : "iCulture",
+			uri  : "/bbs/iculture"
+		},
+	]
+}

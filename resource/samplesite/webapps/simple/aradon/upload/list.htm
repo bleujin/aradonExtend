@@ -1,0 +1,73 @@
+<html>
+	<head>
+	<link rel=StyleSheet HREF=http://im.i-on.net/zeroboard/skin/nzeo_ver4_bbs/style.css type=text/css title=style>
+	<link rel=StyleSheet href="../../common/style/mystyle.css" type=text/css title=my_style>
+	<meta http-equiv=Content-Type content=text/html; charset="UTF-8">
+	<script language="JavaScript" src="../../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.common.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.sample.upload.js"></script>
+	
+	<script type="text/Javascript">
+		var aradon  = new $net.ion.aradon.AradonClient() ;
+		var gallery = new $net.ion.aradon.sample.Gallery(aradon, 'bleujin', 'usergallery') ;
+
+
+		jQuery(document).ready(function(){
+			gallery.initTemplate('list', 'list_template') ;
+			
+			// alert(jQuery('table').text()) ;
+			gallery.goListPage(1) ;
+			
+			// alert($F('other')) ;
+		}) ;
+
+	</script>
+</head>
+<body>
+
+
+<div id="result" >Hello World</div>
+
+
+
+<form id="myForm">
+
+<textarea id="list_template" style="display:none;">
+
+[request] : listNum:@{result.request.page.listNum}, pageNo:@{result.request.page.pageNo} <br>
+[response] : totoalCount:@{result.response.totalCount}<br>
+
+<table border=0 cellspacing=1 cellpadding=4 width=95% >
+<tr align=center class=title>
+	<td width=50 class=title_han height=30>번호</td>
+	<td width=50 class=title_han height=30>Memo</td>
+	<td width=65 class=title_han>작성일</td>
+	<td width=35 class=title_han><font class=title_han>조회</font></td>
+</tr>
+
+{for row in result.nodes}
+<tr align=center class=list1>
+	<td class=list_eng>@{row.no}</td>
+	<td align=left nowrap width="75%"><a href="javascript:gallery.goViewPage('@{row._id.$oid}')" ><font class=list_han>@{row.memo}</font></a></td> 
+	<td nowrap class=list_eng>@{row._created}</td>
+	<td nowrap class=list_eng>@{row.viewcount}</td></tr>
+{forelse}
+<tr><td colspan="5">No Searched Data.</td></tr>
+{/for}
+<tr><td colspan="5"><a href="javascript:gallery.goAddPage()">Add Gallery</a></td></tr>
+</table>
+
+<br>
+</textarea>
+
+
+
+
+</form>
+
+
+
+
+
+</body>
+</html>

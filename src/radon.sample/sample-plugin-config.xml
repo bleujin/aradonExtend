@@ -1,0 +1,53 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root version="0.1">
+	<plugin>
+		<id>net.bleujin.sample.employee</id>
+		<version>0.2</version>
+		<name>Sample Employee Plugin</name>
+		<description></description>
+		<provider>
+			<homepage>http://www.i-on.net</homepage>
+			<developer>bleujin</developer>
+			<email>bleujin@i-on.net</email>
+		</provider>
+		<license>LGPL</license>
+	</plugin>
+
+	<section name="plugin.sample.employee">
+
+		<context>
+			
+		</context>
+
+		<!-- Basic Type 1 :  -->
+		<path name="basic_emp">
+			<urls>/employee, /employee/{empno}</urls>
+			<prefilter class="net.ion.radon.param.ParamFilter">
+				<configured-object>
+					<class-name>net.ion.radon.param.ParamToBeanFilter</class-name>
+					<constructor>
+						<constructor-param>
+							<description>request context id</description>
+							<type>java.lang.String</type>
+							<value>employeeBean</value>
+						</constructor-param>
+						<constructor-param>
+							<description>bean class</description>
+							<type>java.lang.String</type>
+							<value>net.ion.radon.impl.let.sample.Employee</value>
+						</constructor-param>
+					</constructor>
+				</configured-object>
+			</prefilter>
+
+			<handler class="net.ion.radon.impl.let.sample.EmployeeLet" />
+			
+			
+		</path>
+		
+	</section>
+	
+	
+
+</root>

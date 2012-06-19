@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<D:multistatus xmlns:D="DAV:">
+<D:response><D:href>/repository/</D:href>
+<D:propstat><D:prop><D:creationdate>2011-01-12T05:02:58Z</D:creationdate>
+<D:displayname><![CDATA[]]></D:displayname>
+<D:resourcetype><D:collection/></D:resourcetype>
+<D:supportedlock><D:lockentry><D:lockscope><D:shared/></D:lockscope>
+<D:locktype><D:null/></D:locktype>
+</D:lockentry>
+</D:supportedlock>
+<D:lockdiscovery><D:activelock><D:locktype><D:null/></D:locktype>
+<D:lockscope><D:shared/></D:lockscope>
+<D:depth>0</D:depth>
+<D:owner/><D:timeout>Second-9</D:timeout>
+<D:locktoken><D:href>opaquelocktoken:d3d0b59d-5adc-4c9a-8780-98e798996abf</D:href>
+</D:locktoken>
+</D:activelock>
+</D:lockdiscovery>
+<D:source></D:source>
+</D:prop>
+<D:status>HTTP/1.1 200 OK</D:status>
+</D:propstat>
+</D:response>
+</D:multistatus>

@@ -1,0 +1,119 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+
+	<section name="db">
+		<context>
+			<connection id="connection.oracle.bleujinOracle">
+				<database-controller>
+				<controller-name>bleujinOracle</controller-name>
+		        <database-manager>
+		            <description>Oracle database manager</description>
+		            <configured-object>
+		                <class-name>net.ion.framework.db.manager.OracleCacheReleaseDBManager</class-name>
+		                <constructor>
+		                    <constructor-param>
+		                        <description>jdbc URL</description>
+		                        <type>java.lang.String</type>
+		                        <value>jjdbc:oracle:thin:@dev-test.i-on.net:1521:devTest</value>
+		                    </constructor-param>
+		                    <constructor-param>
+		                        <description>User</description>
+		                        <type>java.lang.String</type>
+		                        <value>bleu</value>
+		                    </constructor-param>
+		                    <constructor-param>
+		                        <description>Passwd</description>
+		                        <type>java.lang.String</type>
+		                        <value>redf</value>
+		                    </constructor-param>
+		                    <constructor-param>
+		                        <description>ConnectionLimit</description>
+		                        <type>int</type>
+		                        <value>5</value>
+		                    </constructor-param>
+		                </constructor>
+		            </configured-object>
+		
+		        </database-manager>
+		        <limited-rows>10000</limited-rows>
+		        <extra-servant>
+		            <configured-object>
+		                <class-name>net.ion.framework.db.servant.StdOutServant</class-name>
+		                <constructor>
+		                    <constructor-param>
+		                        <description>show std out (userProcedure : 1, userCommand : 2, userProcedureBatch : 4, userProcedures : 8 )</description>
+		                        <type>int</type>
+		                        <value>15</value>
+		                    </constructor-param>
+		                </constructor>
+		            </configured-object>
+		        </extra-servant>
+	    		</database-controller>
+			</connection>
+		
+		
+			<configured-object id="procedure.config" scope="application">
+			<class-name>net.ion.radon.impl.let.db.ConfigLoader</class-name>
+			 	<constructor>
+             	<constructor-param>
+                    <description>config JSON filePath</description>
+                    <type>java.lang.String</type>
+                    <!-- <value>${BASEPATH}/dbconfig.json</value> -->
+                    <value>src/radon.system/dbconfig.json</value>
+                </constructor-param>
+				<constructor-param>
+                    <description>return object class name</description>
+                    <type>java.lang.String</type>
+                    <value>net.ion.radon.impl.let.db.ProcedureGroup</value>
+                </constructor-param>
+             	</constructor>
+            <property name="monitor" value="aradon.monitor.default" />
+            <call method="addMonitor" />
+			</configured-object>
+			
+		</context>
+		
+		<path name="proc">
+			<context>
+				<attribute id="connect.db.attribute.id">connection.oracle.bleujinOracle</attribute>
+			</context>
+			<urls  matchmode="STARTWITH">/proc/{id}, /proc</urls>
+			
+			<!--
+			<prefilter class="net.ion.radon.impl.filter.CountDownCacheFilter">
+				<configured-object>
+				<class-name>net.ion.radon.impl.filter.CountDownCacheFilter</class-name>
+		        <constructor>
+		            <constructor-param>
+		                <description>refresh.limit.count</description>
+		                <type>int</type>
+		                <value>3</value>
+		            </constructor-param>
+		        </constructor>
+				</configured-object>
+			</prefilter>
+			-->
+			<!--	
+			<prefilter class="net.ion.radon.impl.filter.TimeCacheFilter">
+				<configured-object>
+				<class-name>net.ion.radon.impl.filter.TimeCacheFilter</class-name>
+		        <constructor>
+		            <constructor-param>
+		                <description>refresh.limit.second</description>
+		                <type>int</type>
+		                <value>3</value>
+		            </constructor-param>
+		        </constructor>
+				</configured-object>
+			</prefilter>
+
+			<prefilter class="net.ion.radon.impl.filter.HttpMethodCacheFilter"/>
+			-->
+			
+			<handler class="net.ion.radon.impl.let.db.ProcedureLet" />
+			<afterfilter class="net.ion.radon.impl.filter.HttpResponseFilter"/>
+		</path>
+	</section>
+
+</root>

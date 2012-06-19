@@ -1,0 +1,68 @@
+<html>
+<head>
+	<meta http-equiv="Expires" content="Tue, 14 Mar 2000 22:25:27 GMT" />
+	<title>Database Framework Scripting Layers</title>
+	<link rel="stylesheet" href="../../common/style/mystyle.css" type="text/css" />
+	<script language="JavaScript" src="../../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.common.js"></script>
+	<script language="JavaScript" src="../../common/js/ajax.js"></script>
+	<script language="JavaScript" src="../../common/js/dbfslayers.js"></script>
+
+	<script language="JavaScript">
+		function excuteQuery(){
+			eval($F('query').toString()) ;
+		}
+	</script>
+</head>
+<body>
+
+
+
+<form accept-charset="utf-8">
+
+	<textarea  name="query" id="query" rows="20" cols="150" onkeydown="ignoreTab(event);">
+	var dc = new Database(new Session('http://61.250.201.78:9002/db/query', 'john'));
+
+	/*
+	var ins = dc.createUserCommand("insert into update_sample values(2, '222')") ;
+	$('result').innerHTML = ins.execUpdate() + '<br/>\n' ;
+	*/
+	
+	var cmd = dc.createUserCommand('select * from update_sample where a < :a') ;
+	cmd.setPage(3, 1) ;  // 1 page per 3 unit
+	cmd.setParam('a', '3') ;
+	
+	$I('result').innerHTML = cmd.execQuery().responseText  + '<br/>\n';
+
+	/* execute procedure example
+	var upt = dc.createUserProcedure('sample@selectEmpBy()') ;
+	upt.setPage(3, 1) ;
+	$('result').innerHTML = upt.execQuery() ;
+	
+	*/
+	
+	/* multiple query(same transaction) example
+	var upt1 = dc.createUserCommand('select * from copy_tblc where no1 < :no1') ;
+	upt1.setPage(3, 1) ;
+	upt1.setParam('no1', '05') ;
+	
+	var upt2 = dc.createUserProcedure('sample@selectEmpBy()') ;
+	upt2.setPage(3, 1) ;
+	
+	var upts = dc.createUserProcedures('multi query') ;
+	upts.add(upt1).add(upt2) ;
+	
+	$('result').innerHTML = upts.execQuery() ;
+	*/
+	</textarea><br clear='all'/>
+
+	<input type="button" name="execute" value="executeQuery" onclick="excuteQuery()">
+</form>
+
+<hr/>
+<div id='result'>
+
+</div>
+
+</body>
+</html>

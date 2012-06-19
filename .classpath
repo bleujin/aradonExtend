@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="mybin/radon.board" path="src/radon.board"/>
+	<classpathentry kind="src" output="mybin/test" path="test/main"/>
+	<classpathentry kind="src" output="mybin/radon.sample" path="src/radon.sample"/>
+	<classpathentry kind="src" output="mybin/radon.velocity" path="src/radon.velocity"/>
+	<classpathentry kind="src" output="mybin/im.bbs" path="src/im.bbs"/>
+	<classpathentry kind="src" output="mybin/radon.system" path="src/radon.system"/>
+	<classpathentry kind="src" output="mybin/hello.plugin" path="src/hello.plugin"/>
+	<classpathentry kind="src" output="mybin/radon.jmx" path="src/radon.jmx"/>
+	<classpathentry kind="src" output="mybin/radon.vfs" path="src/radon.vfs"/>
+	<classpathentry kind="src" output="mybin/ics.template" path="src/ics.template"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
+	<classpathentry kind="lib" path="extendlib/jci_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/jetty_fat_745.jar"/>
+	<classpathentry kind="lib" path="extendlib/rest_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.template/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.template/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.template/org.restlet.ext.velocity.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.template/velocity_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/core_lucene_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/jdbc_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/jdom.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/koreananalyzer-20100525.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/lucene_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/mail_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/monitor_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/search_export.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/servlet-api.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/util_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/apache-mime4j-0.6.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/httpclient-4.1.2.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/httpclient-cache-4.1.2.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/httpcore-4.1.2.jar"/>
+	<classpathentry kind="lib" path="extendlib/im.bbs/httpmime-4.1.2.jar"/>
+	<classpathentry kind="lib" path="extendlib/core/groovy-all-1.7.6.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/commons-vfs2-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/aradon_0.7.jar"/>
+	<classpathentry kind="lib" path="lib/iframework_2.3.jar"/>
+	<classpathentry kind="lib" path="lib/mongonode_0.3.jar"/>
+	<classpathentry kind="lib" path="lib/isearcher_2.2.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.sample/h2-1.3.164.jar"/>
+	<classpathentry kind="lib" path="extendlib/ics.template/annotations-1.3.9.jar"/>
+	<classpathentry kind="lib" path="extendlib/ics.template/org.restlet.ext.xml.jar"/>
+	<classpathentry kind="lib" path="extendlib/apache_extend_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.amazon/commons-vfs2-2.0.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.amazon/jets3t-0.9.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Aradon"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

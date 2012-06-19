@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../common/js/jquery-1.4.2.js"></script>
+	<script src="../../common/js/aradon.common.js"></script>
+	
+</head>
+<body>
+  <button onclick="sendMessage();">Send-></button>
+  <iframe id="co2" src="http://61.250.201.78:9002/testload/proxy" width="600" height="300"></iframe>
+  <!--iframe id="co2" src="http://61.250.201.78:9002/testload/hello" width="600" height="300"></iframe-->
+
+<script type="text/javascript">  
+	function sendMessage(){
+		var myMsg = '' ;
+		for(var i=0, last=10 ; i < last ; i++){
+			myMsg += '0123456789'
+		}
+		
+		var result = $I("co2").contentWindow.postMessage(myMsg,"*");
+		
+		
+		// alert(dest.contentDocument.getElementById('message').innerHTML) ;
+	}
+	
+	function receiveMessage(event) {  
+		// if (event.origin !== "http://example.org")  
+		//  return;  
+		alert(event.data.substring(0, 20), event.origin) ;
+	} 
+ 
+ 	var browser = new $net.ion.common.Browser() ;
+	if (browser.ie) {
+	    window.attachEvent('onmessage', receiveMessage);
+	} else {
+		window.addEventListener('message', receiveMessage, true);
+	}
+ 
+  
+ 
+</script>
+
+
+
+</body>
+</html>

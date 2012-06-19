@@ -1,0 +1,100 @@
+<html>
+	<head>
+	<link rel=StyleSheet HREF=http://im.i-on.net/zeroboard/skin/nzeo_ver4_bbs/style.css type=text/css title=style>
+	<meta http-equiv=Content-Type content=text/html; charset=EUC-KR>
+
+	<script language="JavaScript" src="../common/js/common.js"></script>
+	<script language="JavaScript" src="../common/js/common_lang.js"></script>
+	<script language="JavaScript" src="../common/js/common_object.js"></script>
+	<script language="JavaScript" src="../common/js/ajax.js"></script>
+	<script language="JavaScript" src="../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../common/js/search_core.js"></script>
+
+	
+	<script>
+	
+		function writeNotice(){
+			var frm = document.forms[0] ;
+			
+			// $.post("http://localhost:9002/sample/content/test/content/bleujin", {vid:'bleujin', subject:frm.subject.value, content:frm.content.value}, function(data, type){alert(data, type) ;}, "xml") ;
+			
+			
+			$.ajax({
+				type: "POST", 
+				url: "http://localhost:9002/sample/content/test/content/bleujin", 
+				data : {vid:'bleujin', subject:frm.subject.value, content:frm.content.value}, 
+				success : function(data) { 
+					alert(data) ;
+				}, 
+				dataType : "script"
+			}) ;
+			
+		} ;
+	
+		function viewNotice(){
+			var frm = document.forms[0] ;
+			
+			var response = $.ajax({
+				type: "GET", 
+				url: "http://localhost:9002/sample/content/test/content/bleujin", 
+				asynch: false, 
+				cache: false, 
+				complete: function( res, status ) {
+					// alert('Complete', ObjectUtil.toDescString(res, 1, 0), status) ;
+					$("#dmessage2").text( 'Complete\n' + ObjectUtil.toDescString(res, 1, 1)) ;
+				}, 
+				success : function(data) { 
+					// alert('Success', data) ;
+					$('#dmessage1').text('Success\n' + data) ;
+					// alert()
+				}, 
+				error: function(req,error){
+					alert('Error', req, error) ;
+				}, 
+				beforeSend: function(data){
+					// alert('beforeSend', data) ;
+					$('#dmessage1').text('Clear') ;
+				}, 
+				dataType : "html"
+			}) ;
+			
+		} ;
+	
+		
+	
+	</script>
+</head>
+
+
+<body>
+
+
+
+<table border=0 width=95% cellsapcing=1 cellpadding=0>
+<form>
+
+<col width=80 align=right style=padding-right:10px;height:28px class=list1></col>
+<col class=list0 style=padding-left:10px;height:28px width=></col>
+<tr class=title><td colspan=2 class=title_han align=center>&nbsp;&nbsp;새로 글 쓰기</td></tr>
+
+<tr valign=top>
+	<td><b>Subject</b></td>
+	<td><input type=text name=subject value="가나다라 마바사"  size=36  maxlength=200 style=width:99% class=input></td></tr>
+
+<tr><td><b>Memo</b></td>
+	<td><textarea name=content cols=54  rows=18 class=textarea style=width:99%>abcdefg hijklmn opqrstu</textarea></td></tr>
+</table>
+
+<table border=0 width=95% cellsapcing=1 cellpadding=0>
+<tr><td>
+	<table border=0 cellspacing=1 cellpadding=2 width=100% height=40>
+	<tr><td align=right><input type=button value="작성완료" onclick="writeNotice()"> <input type=button value="취소하기" onclick="viewNotice()"></td></tr>
+	</table></td></tr>
+</table>
+<br>
+
+<div id="dmessage1"></div>
+<div id="dmessage2"></div>	
+
+</body>
+</html>

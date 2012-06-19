@@ -1,0 +1,26 @@
+
+#if ($request.attributes.get("server"))
+	#set( $prefix="" )
+	#set( $title="Server $request.attributes.get('server')" )
+	#if ($request.attributes.get("domain"))
+		#set( $title="Server $request.attributes.get('server') > $request.attributes.get('domain')" )
+	#end
+	#if ($request.attributes.get("mbean"))
+		#set( $title="Server $request.attributes.get('server') > $request.attributes.get('domain') > $encoder.decode($request.attributes.get('mbean'))" )
+	#end
+#else
+	#set( $prefix="Server " )
+	#set( $title='Servers' )
+#end
+
+#set( $name="$request.resourceRef.lastSegment" )
+#parse("jminix/templates/header.vm")
+
+<ul>
+#foreach( $i in $items)
+<li>	
+	<a href="$encoder.encode($i.toString())/$query">$prefix$i</a>
+</li>
+#end
+</ul>
+#parse("jminix/templates/footer.vm")

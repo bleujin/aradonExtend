@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Scripting Layers</title>
+	<meta name="writer" content="i-on" />
+	<script language="JavaScript" src="../../common/ejs/codemirror.js"></script>
+	<script language="JavaScript" src="../../common/ejs/mirrorframe.js"></script>
+	<script language="JavaScript" src="../../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.common.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.sample.composite.js"></script>
+
+	<script type="text/Javascript">
+		var aradon = new $net.ion.aradon.AradonClient() ;
+		var composite = new $net.ion.aradon.sample.Composite(aradon, 'bleujin') ; // aradon, sessionId, groupid
+
+
+		jQuery(document).ready(function(){
+			//var textarea = $I('cont');
+			// manager.getTemplate('hello') ;
+			// $('#result').val('ddddd') ;
+			
+		}) ;
+	</script>
+
+</head>
+
+
+
+<body class="normal">
+<br/>
+
+<form id="frm">
+<table width="70%">
+<tr><td>
+
+<input type="text" name="procId" length="100" value="selectAll" /><input type="button" name="get" value="Get Data" onClick="composite.getData($F('procId'))"/><br/>
+<input type="text" name="tplId"  length="100" value="test.bleujin/hello" /><input type="button" name="get" value="Get Template" onClick="composite.getTemplate($F('tplId'))"/><input type="button" name="get" value="Set Template" onClick="composite.setTemplate($F('tplId'))"/>
+
+<div style="border: 1px solid black; padding: 3px;">
+<textarea id="cont" cols="200" rows="20">// Here you see some JavaScript code. Mess around with it to get
+// Put Your Template Id
+
+
+</textarea>
+
+</div>
+	
+	
+<br clear='all'/>
+
+<input type="button" name="apply" value="apply" onclick="composite.applyTemplate();" />
+</td></tr>
+</table>
+</form>
+
+<hr/>
+ 
+<script type="text/javascript">
+  var textarea = document.getElementById('cont');
+  var editor = CodeMirror.fromTextArea('cont', {
+    parserfile: ["tokenizejavascript.js", "parsejavascript.js", "parsexml.js"],
+    stylesheet: ["../../common/style/xmlcolors.css","../../common/style/jscolors.css"],
+    path: "../../common/ejs/"
+  });
+ 
+</script>
+
+
+</body>
+</html>

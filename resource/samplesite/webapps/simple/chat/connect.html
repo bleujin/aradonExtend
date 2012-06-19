@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>WebSocket Client Test</title>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+  <script src='https://raw.github.com/LiosK/UUID.js/master/src/uuid.js'></script> 
+  <script>
+  	var ws;
+  	var requestId = "anonymous" ;
+  	$(function() {
+  		$('#msgBox').hide();
+  	});
+	function connect(url) {
+		ws = new WebSocket(url);
+		ws.onopen = function(event) {
+			console.warn(url + ' Connection Open.\n') ;
+			// ws.send("{body:{message:'Hello'}, head:{command:'message'}}") ;
+		} ;
+		ws.onmessage = function(event) { 
+			console.warn(event.data) ;
+		} ;
+		ws.onclose = function(event) {console.warn( url + ' Connection Closed.\n' + event.data)}
+	};
+  	
+  	function disconnect() {
+		ws.close('logout') ;
+  	}
+  	
+  	function sendMessage() {
+  		var msg = $('#message').val();
+  		var json = "{head:{command:'MESSAGE',requestid:'" + requestId + "'},body:{room:{roomid:''},message:'" + msg + "'}}";
+  		ws.send(json)
+  	}
+  </script>
+ </head>
+
+ <body>
+ 	My userid is anonymous
+ 	<table border="1" width="400">
+ 		<tr><td><input type="text" id="serverURL" size="40" value="ws://61.250.201.157:9000/;timeout=360000"/></td>
+ 			<td><input type="button" value="connect" onclick="connect($('#serverURL').val());"></td>
+ 			<td><input type="button" value="disconnect" onclick="disconnect();"></td></tr>
+ 		<tr><td colsapn="3"><br/><br/></td></tr>
+ 		<tr><td><input type="text" id="message" name="txtInput" value="hello.."></td>
+ 			<td colspan="2"><input type="button" value="send" onclick="sendMessage();"></td></tr>
+ 	</table>
+ 	<br/>
+ 	
+ </body>
+</html>

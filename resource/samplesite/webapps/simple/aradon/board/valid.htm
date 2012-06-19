@@ -1,0 +1,48 @@
+<html>
+	<head>
+	<link rel=StyleSheet href="../../common/style/mystyle.css" type=text/css title=my_style>
+	<meta http-equiv=Content-Type content=text/html; charset="UTF-8">
+	<script language="JavaScript" src="../../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.common.js"></script>
+	
+	<script type="text/Javascript">
+		var valid = new $net.ion.common.valid.Vaildator() ;
+		
+		var fv = new $net.ion.common.valid.FormValid() ;
+		fv.setForward('add') ;
+		fv.required('text', 'text required', false); 
+		
+		function confirmCommand(){
+			// alert(valid.getElement('text2').value) ;
+			
+			fv.validate('add') ;
+		} ;
+		
+		function $F(name){
+			return $(document.forms[0]).children("[name='" + name + "']").val() ;
+		} ;
+		
+		jQuery(document).ready(function(){
+			alert($F('text2')) ;
+			// , $("#myForm>input[name='text1']").attr('value', '5000')) ;
+			$('#text2').attr('value', 'dddddd')
+		}) ;
+		
+
+	</script>
+</head>
+<body>
+
+
+<div id="result" >Hello World</div>
+
+<form id="myForm">
+	<input type="text" name="text1" size=50 value="111" /><br>
+	<textarea name="text2" rows=10 cols=50 >Hello</textarea>
+	
+</form>
+<a href="javascript:confirmCommand()">Confirm</a>
+
+
+</body>
+</html>

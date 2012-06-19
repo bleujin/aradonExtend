@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project name="ICSS Groovy Compile" default="complie" basedir=".">
+  	
+	<path id="groovy.classpath">
+		<fileset dir="C:/Program Files/Groovy/Groovy-1.7.6/embeddable/" />
+		<fileset dir="../../lib/core/" >
+			<filename name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<taskdef name="groovyc"  classname="org.codehaus.groovy.ant.Groovyc" classpathref="groovy.classpath" />
+	
+	<target name="complie" description="complie groovy">
+		<mkdir dir="classes" />
+		<groovyc destdir="classes" srcdir="./procedure"  classpathref="groovy.classpath" />
+	</target>
+
+</project>

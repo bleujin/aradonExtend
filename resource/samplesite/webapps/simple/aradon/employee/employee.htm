@@ -1,0 +1,153 @@
+<html>
+	<head>
+	<link rel=StyleSheet href="../../common/style/mystyle.css" type=text/css title=my_style>
+	<meta http-equiv=Content-Type content=text/html; charset="UTF-8">
+	<script language="JavaScript" src="../../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.common.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.sample.employee.js"></script>
+	
+	<script type="text/Javascript">
+		var aradon = new $net.ion.aradon.AradonClient() ;
+		var emps  = new $net.ion.aradon.sample.Employee(aradon, 'bleujin', 'ion.test.floor6') ; // aradon, sessionId, groupId
+
+
+		jQuery(document).ready(function(){
+			emps.initTemplate({list:'list_template', view:'view_template', edit:'edit_template', add:'add_template'}) ;
+			
+			// alert(jQuery('table').text()) ;
+			emps.goListPage(1) ;
+			
+			
+			// alert($F('other')) ;
+		}) ;
+
+	</script>
+</head>
+<body>
+
+
+<form id="myForm">
+<div id="result" >Hello World</div>
+
+
+
+<textarea id="list_template" style="display:none;">
+<table border=1 cellspacing=1 cellpadding=4 width=600>
+<tr align=center>
+	<th width=50 height=25>empNo</th>
+	<th >ename</th>
+	<th width=150>Address</th>
+	<th width=65>Sal</th>
+	<th width=100>dept</th></tr>
+
+{for row in result.nodes}
+<tr align=center>
+	<td ><a href="javascript:emps.goViewPage('@{row.empno}')">@{row.empno}</a></td>
+	<td ><a href="javascript:emps.goViewPage('@{row.empno}')">@{row.ename}</a></td> 
+	<td >@{row.address}</td>
+	<td >@{row.sal}</td>
+	<td >@{row.dept}</td></tr>
+{forelse}
+<tr><td colspan="5">No Searched Data.</td></tr>
+{/for}
+</table>
+
+<table border=0 cellspacing=1 cellpadding=4 width=600>
+<tr><td align="right">Search : <input type="text" size="20" name="searchkey" /><input type="button" name="search" value="Search" onclick="emps.search(1)">
+		</td></tr>
+<tr><td><a href="javascript:emps.goAddPage()">Add Employee</a></td></tr>
+</table>
+<br>
+</textarea>
+
+
+<textarea id="view_template" style="display:none;">
+
+{for row in result.nodes}
+<table border="0" cellspacing="0" cellpadding="0" width="600">
+<tr><td align="center">View Employee</td></tr>
+<tr><td><b>@{row.empno}. @{row.ename}</b></td></tr>
+
+<tr><td><br />
+	Address : @{row.address} <br />
+	Sal : @{row.sal} <br />
+	Dept : @{row.dept} <br />
+	</td>
+</tr>
+</table>
+
+<br />
+<a href="javascript:emps.goPreListPage()">Pre List</a> | <a href="javascript:emps.goEditPage('@{row.empno}')">Modify</a> | <a href="javascript:emps.delEmployee('@{row.empno}')">Delete</a>
+{/for}
+<br><br>
+</textarea>
+
+
+
+<textarea id="edit_template" style="display:none;">
+
+<table border="0" width="600" cellsapcing="1" cellpadding="0">
+<tr>
+	<td colspan="2" align="center">Modify Employee</td></tr>
+{for row in result.nodes}
+<tr><td width="100"><b>empNo</b></td>
+	<td>@{row.empno}</td></tr>
+<tr><td width="100"><b>ename</b></td>
+	<td><input type="text" name="ename" id="ename" value='@{row.ename}'  size=36  maxlength=200></td></tr>
+<tr><td width="100"><b>Address</b></td>
+	<td><textarea name="address" id="address" cols="54"  rows="3" class="textarea" style="width:99%">@{row.address}&lt;/textarea></td></tr>
+<tr><td width="100"><b>sal</b></td>
+	<td><input type="text" name="sal" id="sal" value='@{row.sal}'  size=36  maxlength=200></td></tr>
+<tr><td width="100"><b>dept</b></td>
+	<td><input type="text" name="dept" id="dept" value='@{row.dept}'  size=36  maxlength=200></td></tr>
+<tr><td><b>Memo</b></td>
+	<td><textarea name="memo" id="memo" cols="54"  rows="5" class="textarea" style="width:99%">@{row.memo}&lt;/textarea></td></tr>
+{/for}	
+</table>
+
+<br />
+<a href="javascript:emps.editEmployee('@{row.empno}')">Modify Employee</a> | <a href="javascript:emps.goViewPage('@{row.empno}')">Cancel</a> | <a href="javascript:emps.delEmployee('@{row.empno}')">Delete</a>
+<br><br>
+
+</textarea>
+
+</form>
+
+
+
+
+
+<textarea id="add_template" style="display:none;">
+
+
+<table border="0" width="600" cellsapcing="1" cellpadding="0">
+<tr>
+	<td colspan="2" align="center">Add Employee</td></tr>
+<tr><td width="100"><b>empNo</b></td>
+	<td><input type="text" name="empno" id="empno" size="36" maxlength="200" value="1234"></td></tr>
+<tr><td width="100"><b>ename</b></td>
+	<td><input type="text" name="ename" id="ename" size="36" maxlength="200"></td></tr>
+<tr><td width="100"><b>Address</b></td>
+	<td><textarea name="address" id="address" cols="54"  rows="3" class="textarea" style="width:99%">&lt;/textarea></td></tr>
+<tr><td width="100"><b>sal</b></td>
+	<td><input type="text" name="sal" id="sal" size="36"  maxlength=200></td></tr>
+<tr><td width="100"><b>dept</b></td>
+	<td><input type="text" name="dept" id="dept" size="36"  maxlength=200></td></tr>
+<tr><td><b>Memo</b></td>
+	<td><textarea name="memo" id="memo" cols="54"  rows="5" class="textarea" style="width:99%">&lt;/textarea></td></tr>
+</table>
+
+<br />
+<a href="javascript:emps.addEmployee()">Add Employee</a> | <a href="javascript:emps.goPreListPage()">Pre List</a> 
+<br><br>
+
+</textarea>
+
+
+
+</form>
+
+
+
+</body>
+</html>

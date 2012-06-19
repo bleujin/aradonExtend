@@ -1,0 +1,30 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root version="0.1">
+	<plugin>
+		<id>net.bleujin.sample.vfs</id>
+		<version>0.7</version>
+		<name>Sample VFS Plugin</name>
+		<description></description>
+		<provider>
+			<homepage>http://www.i-on.net</homepage>
+			<developer>bleujin</developer>
+			<email>bleujin@i-on.net</email>
+		</provider>
+		<license>LGPL</license>
+	</plugin>
+
+	<section name="ics">
+		<context>
+			<attribute id="base.dir">./</attribute>
+		</context>
+
+		<path name="dir">
+			<urls matchmode="STARTWITH">/_rest/vfs/</urls>
+			<handler class="net.ion.radon.plugin.vfs.DirLet2" scope="request" />
+		</path>
+
+
+	</section>
+	
+</root>

@@ -1,0 +1,11 @@
+	.cal_table 		{font-size: 8pt; background-color: #666666; color: #333333;cursor:hand;cursor:pointer; }
+	.cal_td    		{font-size: 8pt }
+	.cal_week  		{font-size: 8pt; background-color: #CCCCCC;text-align: center;cursor:hand;cursor:pointer; }
+	.css_sun   		{font-size: 8pt; background-color: #FFDFDF; color: #FF0000 ;text-align: center;cursor:hand;cursor:pointer; }
+	.css_sat   		{font-size: 8pt; background-color: #DDF1FF; color: #003399 ;text-align: center;cursor:hand;cursor:pointer; }
+	.css_def   		{font-size: 8pt; background-color: #FFFFFF; color: #000000 ;text-align: center;cursor:hand;cursor:pointer; }
+	.css_tod   		{font-size: 8pt; background-color: #FFFFFF; color: #0000FF ;text-align: center;cursor:hand;cursor:pointer;font-weight: bold }
+ 	.css_sun_non	{font-size: 8pt; background-color: #FFDFDF; color: #8F8F8F ;text-align: center;cursor:hand;cursor:pointer }
+ 	.css_sat_non	{font-size: 8pt; background-color: #DDF1FF; color: #8F8F8F ;text-align: center;cursor:hand;cursor:pointer }
+	.css_def_non	{font-size: 8pt; background-color: #FFFFFF; color: #8F8F8F ;text-align: center;cursor:hand;cursor:pointer }
+

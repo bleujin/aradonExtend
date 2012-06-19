@@ -1,0 +1,21 @@
+#set( $title="Server $request.attributes.get('server') > $encoder.decode($request.attributes.get('domain')) > $encoder.decode($request.attributes.get('mbean')) > $encoder.decode($request.attributes.get('attribute'))" )
+#set( $name="$encoder.decode($request.attributes.get('attribute'))" )
+#parse('jminix/templates/header.vm')
+<html>
+<h3></h3>
+
+<table>
+<tr>
+#foreach( $key in $attribute.tabularType.rowType.keySet() )
+<th>$key</th>
+#end
+</tr>
+#foreach ($row in $attribute.values())
+	<tr>
+	#foreach( $item in $row.compositeType.keySet() )
+		<td>$row.get($item)</td>
+	#end
+	</tr>
+#end
+</table>
+#parse('jminix/templates/footer.vm')

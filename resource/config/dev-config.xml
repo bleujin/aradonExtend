@@ -1,0 +1,130 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+
+	<context>
+		<connection id="connection.oracle.bleujinOracle">
+				<database-controller>
+				<controller-name>bleujinOracle</controller-name>
+		        <database-manager>
+		            <description>Oracle database manager</description>
+		            <configured-object>
+		                <class-name>net.ion.framework.db.manager.OracleCacheReleaseDBManager</class-name>
+		                <constructor>
+		                    <constructor-param>
+		                        <description>jdbc URL</description>
+		                        <type>java.lang.String</type>
+		                        <value>jjdbc:oracle:thin:@dev-test.i-on.net:1521:devTest</value>
+		                    </constructor-param>
+		                    <constructor-param>
+		                        <description>User</description>
+		                        <type>java.lang.String</type>
+		                        <value>bleu</value>
+		                    </constructor-param>
+		                    <constructor-param>
+		                        <description>Passwd</description>
+		                        <type>java.lang.String</type>
+		                        <value>redf</value>
+		                    </constructor-param>
+		                    <constructor-param>
+		                        <description>ConnectionLimit</description>
+		                        <type>int</type>
+		                        <value>5</value>
+		                    </constructor-param>
+		                </constructor>
+		            </configured-object>
+		
+		        </database-manager>
+		        <limited-rows>10000</limited-rows>
+		        <extra-servant>
+		            <configured-object>
+		                <class-name>net.ion.framework.db.servant.StdOutServant</class-name>
+		                <constructor>
+		                    <constructor-param>
+		                        <description>show std out (userProcedure : 1, userCommand : 2, userProcedureBatch : 4, userProcedures : 8 )</description>
+		                        <type>int</type>
+		                        <value>15</value>
+		                    </constructor-param>
+		                </constructor>
+		            </configured-object>
+		        </extra-servant>
+	    		</database-controller>
+			</connection>
+	</context>
+	
+	
+	
+	<section name="test">
+		<!--prefilter class="net.ion.radon.core.security.ChallengeAuthenticator">
+			<configured-object>
+				<class-name>net.ion.radon.core.security.ChallengeAuthenticator</class-name>
+				<constructor>
+					<constructor-param>
+						<description>realm id</description>
+						<type>java.lang.String</type>
+						<value>Default</value>
+					</constructor-param>
+				</constructor>
+			</configured-object>
+		</prefilter-->
+		<path name="hello">
+			<prefilter class="net.ion.radon.core.security.RDBChallengeAuthenticator">
+				<configured-object>
+					<class-name>net.ion.radon.core.security.RDBChallengeAuthenticator</class-name>
+					<constructor>
+						<constructor-param>
+							<description>realm id</description>
+							<type>java.lang.String</type>
+							<value>My Realm</value>
+						</constructor-param>
+						<constructor-param>
+							<description>dc context id</description>
+							<type>java.lang.String</type>
+							<value>connection.oracle.bleujinOracle</value>
+						</constructor-param>
+						<constructor-param>
+							<description>parameter query</description>
+							<type>java.lang.String</type>
+							<value>select ename password from emp_sample where empno = :userid</value>
+						</constructor-param>
+					</constructor>
+				</configured-object>
+			</prefilter>
+			<urls>/hello</urls>
+			<description>Default</description>
+			<handler class="net.ion.radon.impl.let.HelloWorldLet" scope="request" />
+		</path>
+		<path name="chain">
+			<urls>/chain</urls>
+			<description> required : to, from, subject, content</description>
+			<handler class="net.ion.radon.impl.let.TestChainLet" />
+		</path>
+		
+		<path name="sendmail">
+			<urls>/sendmail</urls>
+			<description> required : to, from, subject, content</description>
+			<context>
+					<attribute id="smtp.config.host">smtp.i-on.net</attribute>
+					<attribute id="smtp.config.port">25</attribute>
+					<attribute id="smtp.config.userid">bleujin@i-on.net</attribute>
+					<attribute id="smtp.config.password">******</attribute>
+			</context>			
+			<handler class="net.ion.radon.impl.let.common.SendMailLet" />
+		</path>
+		
+	</section>
+
+
+	<section name="other">
+		<context>
+			<attribute id="message">Context Message</attribute>
+		</context>
+	
+		<path name="hello">
+			<urls>/hello</urls>
+			<description>Default</description>
+			<handler class="net.ion.radon.impl.let.HelloWorldLet" scope="request" />
+		</path>
+	</section>
+
+</root>

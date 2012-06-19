@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<project name="FatJar ARadon Extend (experimental)" default="make_velocity_fat" basedir=".">
+
+	<property name="libDir" value="../lib/" />
+	<property name="libSourceDir" value="../lib_source/" />
+
+    <target name="make_velocity_fat">
+    	<delete file="${libDir}/radon.template/velocity_fat.jar"></delete>
+        <fatjar.build output="${libDir}/radon.template/velocity_fat.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libSourceDir}\velocity\velocity-1.7.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\velocity\velocity-tools-2.0.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\velocity\velocity-tools-generic-2.0.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\velocity\velocity-tools-view-2.0.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+    
+    <target name="mail_fat">
+    	<delete file="${libDir}/radon.system/mail_fat.jar"></delete>
+        <fatjar.build output="${libDir}/radon.system/mail_fat.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libSourceDir}\mail\activation.jar" relpath=""/> <!-- mail -->
+        	<fatjar.jarsource file="${libSourceDir}\mail\dsn.jar" relpath=""/> <!-- mail --> 
+        	<fatjar.jarsource file="${libSourceDir}\mail\imap.jar" relpath=""/> <!-- mail -->
+        	<fatjar.jarsource file="${libSourceDir}\mail\mailapi.jar" relpath=""/> <!-- mail -->
+        	<fatjar.jarsource file="${libSourceDir}\mail\pop3.jar" relpath=""/> <!-- mail -->
+        	<fatjar.jarsource file="${libSourceDir}\mail\smtp.jar" relpath=""/> <!-- mail -->
+        </fatjar.build>
+    </target>
+    
+	
+	
+    <target name="monitor_fat">
+    	<delete file="${libDir}/radon.system/monitor_fat.jar"></delete>
+        <fatjar.build output="${libDir}/radon.system/monitor_fat.jar">
+            <fatjar.manifest/>
+        	<fatjar.jarsource file="${libSourceDir}\monitor\jfilenotifysf.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\monitor\jna.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\monitor\platform.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+	
+
+	
+    <target name="util_fat">
+    	<delete file="${libDir}/radon.system/util_fat.jar"></delete>
+        <fatjar.build output="${libDir}/radon.system/util_fat.jar">
+            <fatjar.manifest/>
+
+        	<fatjar.jarsource file="${libSourceDir}\util\ezmorph-1.0.5.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\util\paranamer-2.2.jar" relpath=""/> 
+        	<fatjar.jarsource file="${libSourceDir}\util\wrapper.jar" relpath=""/> 
+        </fatjar.build>
+    </target>
+
+	<target name="imsi">
+		<delete file="${baseDir}/imsi/imsi.jar"></delete>
+		<fatjar.build output="${baseDir}/imsi/imsi.jar">
+			<fatjar.manifest/>
+			<fatjar.filesource path="${baseDir}/../imsi" relpath="">
+            	<fatjar.exclude relpath="net/ion/cms"/>
+            	<fatjar.exclude relpath="net/ion/thoth"/>
+            	<fatjar.exclude relpath="org/"/>
+			</fatjar.filesource>
+
+		</fatjar.build>
+	</target>
+</project>
+    

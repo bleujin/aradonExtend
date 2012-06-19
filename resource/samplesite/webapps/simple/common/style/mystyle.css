@@ -1,0 +1,21 @@
+	.drop-target{
+        font-family: Georgia;
+		border:1px solid #000;
+		height:30px;
+        text-align:center;
+        padding:40px;
+	}
+    h4{
+        font-family: Georgia;
+        text-align:center;
+    }
+    td{
+        font-family: Georgia;
+        font-size:9pt;
+    }
+    th{
+        font-family: Georgia;
+        text-size:3pt;
+        font-size:10pt;
+    }
+	    

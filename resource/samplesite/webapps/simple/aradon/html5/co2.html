@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+	<div id="message"></div>   
+	
+	<script type="text/javascript">
+
+		var messageFn = function(e) {
+		  var data = e.data;
+		  // var origin = e.origin;
+		
+		  document.getElementById('message').innerHTML += e.origin + e.data.substring(0, 10) + e.data.length + ' My result...<br>';
+		  e.source.postMessage('Hi there. ' + data, e.origin) ;
+		};
+		
+		if (typeof window.addEventListener != 'undefined') { // firefox
+		    window.addEventListener('message', messageFn, true);
+		} else if (typeof window.attachEvent != 'undefined') { // explorer
+		    window.attachEvent('onmessage', messageFn);
+		}
+	</script>
+
+
+</body>
+</html>

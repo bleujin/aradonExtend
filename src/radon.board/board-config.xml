@@ -1,0 +1,52 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root>
+	
+
+	<section name="core">
+		<path name="dataio">
+			<urls  matchmode="STARTWITH">/dataio/</urls>
+			<description> PUT : add, POST : edit, DELETE : delete, GET : list, view</description>
+			<handler class="net.ion.radon.impl.let.core.RamDataStore" />
+		</path>
+	</section>
+
+	<section name="board">
+		<path name="list">
+			<urls>/list/{boardid}, /list/{boardid}/{listnum}, /list/{boardid}/{listnum}/{pageno}</urls>
+			<description> </description>
+			<handler class="net.ion.radon.impl.let.board.ListLet" ></handler>
+		</path>
+	
+		<path name="search">
+			<urls>/search/{boardid}, /search/{boardid}/{listnum}, /search/{boardid}/{listnum}/{pageno}</urls>
+			<description> </description>
+			<handler class="net.ion.radon.impl.let.HelloWorldLet" />
+		</path>
+	
+		<path name="article_add">
+			<urls>/add/{boardid}</urls>
+			<description>Get : go Add Page, POST : add Article</description>
+			<handler class="net.ion.radon.impl.let.board.AddLet" scope="request" />
+		</path>
+		
+		<path name="article_view">
+			<urls>/view/{boardid}/{no}</urls>
+			<description>Get : go View Page</description>
+			<handler class="net.ion.radon.impl.let.board.ViewLet" scope="request" />
+		</path>
+		
+		<path name="article_edit">
+			<urls>/edit/{boardid}/{no}</urls>
+			<description>Get : go Edit Page, POST : edit Article</description>
+			<handler class="net.ion.radon.impl.let.board.EditLet" scope="request" />
+		</path>
+
+		<path name="article_delete">
+			<urls>/delete/{boardid}/{no}</urls>
+			<description>Get : go Delete Page, POST : delete Article</description>
+			<handler class="net.ion.radon.impl.let.board.DeleteLet" scope="request" />
+		</path>
+	</section>
+	
+</root>

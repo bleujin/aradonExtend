@@ -1,0 +1,76 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<aradon version="0.1">
+	<plugin>
+		<name>Velocity Template</name>
+		<description></description>
+		<provider>
+			<homepage>http://www.i-on.net</homepage>
+			<developer>bleujin</developer>
+			<email>bleujin@i-on.net</email>
+		</provider>
+		<license>LGPL</license>
+	</plugin>
+	
+	<sction name="velocity">
+		<prefilter class="net.ion.aradon.let.velocity.VelocityLoaderFilter">
+
+			<attribute id="directive.foreach.counter.name">loopCounter</attribute>
+			<attribute id="directive.foreach.counter.initial.value">0</attribute>
+			
+			<attribute id="input.encoding">UTF-8</attribute>
+			<attribute id="output.encoding">UTF-8</attribute>
+			<attribute id="resource.loader">file\,string</attribute>
+			<!--
+			<attribute id="resource.manager.cache.class">net.ion.radon.impl.let.velocity.ResourceCacheImpl</attribute>
+			<attribute id="velocity.toolboxConfigLocation">/resource/toolbox.xml</attribute>
+			-->
+
+			<attribute id="file.resource.loader.cache">true</attribute>
+			<attribute id="file.resource.loader.repository.name">fsimple</attribute>
+			<attribute id="file.resource.loader.description">Velocity File Resource Loader</attribute>
+			<attribute id="file.resource.loader.class">org.apache.velocity.runtime.resource.loader.FileResourceLoader</attribute>
+			<attribute id="file.resource.loader.cache">true</attribute> <!-- second -->
+			<attribute id="file.resource.loader.modificationCheckInterval">60</attribute> <!-- second -->
+			<attribute id="file.resource.loader.path">resource/template</attribute>
+
+			<attribute id="string.resource.loader.repository.name">string</attribute>
+			<attribute id="string.resource.loader.description">Velocity StringResource loader</attribute>
+			<attribute id="string.resource.loader.class">org.apache.velocity.runtime.resource.loader.StringResourceLoader</attribute>
+			<attribute id="string.resource.loader.cache">false</attribute> 
+			<attribute id="string.resource.loader.modificationCheckInterval">2</attribute> <!-- second -->
+			<attribute id="string.resource.loader.repository.class">org.apache.velocity.runtime.resource.util.StringResourceRepositoryImpl</attribute>
+		</prefilter>
+		
+		<context>
+			<attribute id="let.result.mediatype">text/html;charset=UTF-8</attribute>
+		</context>
+
+
+		<path name="simple">
+			<urls>/simple</urls>
+			<context>
+				<attribute id="template.param.name">template</attribute>
+			</context>			
+			<handler class="net.ion.aradon.let.velocity.SimpleVelocityLet" />
+		</path>
+
+		<path name="string">
+			<urls>/string/{groupid}/{uid}</urls>
+			<context>
+				<attribute id="template.param.name">template</attribute>
+			</context>
+			<handler class="net.ion.aradon.let.velocity.StringVelocityLet" />
+		</path>
+
+		<path name="file">
+			<urls>/file/{uid}</urls>
+			<context>
+				<attribute id="template.file.suffix">.vm</attribute>
+			</context>				
+			<handler class="net.ion.aradon.let.velocity.FileVelocityLet" />
+		</path>
+	</sction>
+	
+
+</aradon>

@@ -1,0 +1,9 @@
+
+
+<h3>Request : </h3><br>
+#foreach( $ entry in $request.attributes.entrySet())
+	$entry.key : $entry.value <br>
+#end
+
+
+하이 Hello ${source.name}, ${request.source}, ${request.template},  

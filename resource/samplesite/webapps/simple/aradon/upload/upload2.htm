@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<style media="screen">
+	#file-drop-target{
+        font-family: Georgia;
+		border:1px solid #000;
+		height:30px;
+        text-align:center;
+        padding:40px;
+	}
+    h4{
+        font-family: Georgia;
+        text-align:center;
+    }
+    
+</style>
+<script language="JavaScript" src="../../common/js/common.js"></script>
+<script language="javascript" type="text/javascript">
+		
+	function handleDrop(event){
+		preventDef(event)
+	    var dt = event.dataTransfer;
+	  	var files = dt.files;
+		for(var i = 0; i < files.length;i++){
+	    	
+			req = new XMLHttpRequest();
+			req.targetfile = files[i] ;
+			var boundaryString = 'gc0p4Jq0M2Yt08jU534c0p';
+			var boundary = '--' + boundaryString ;
+			var requestbody = boundary + '\r\n'
+				+ 'Content-Disposition: form-data; name="thefilename"' + '\r\n'  + '\r\n'
+		        + files[i].fileName + '\r\n' 
+		        + boundary + '\r\n'
+		        + 'Content-Disposition: form-data; name="thefile"; filename="' + files[i].fileName + '"' + '\r\n'
+		        + 'Content-Type: application/octet-stream' + '\r\n'+ '\r\n'
+		        + files[i].getAsBinary() + '\r\n'
+		        + boundary;
+				        
+			req.onreadystatechange = _handleReadyState;
+			req.open('POST', 'http://localhost:9002/system/file', true);
+			req.setRequestHeader("Content-type", "multipart/form-data; boundary=\"" + boundaryString + "\"");
+			// req.setRequestHeader("Connection", "close");
+			req.setRequestHeader("Content-length", requestbody.length);
+			req.sendAsBinary(requestbody);  	
+	    }
+	}
+	
+	function _handleReadyState(){
+	    if (this.readyState == 4){
+	        if(this.status == 200){
+	            var file = eval('(' + this.responseText + ')') ;
+	            document.getElementById('status-msg').innerHTML += ' <br />';
+	
+	            var imgObj = document.createElement('img');
+	            //imgObj.src = 'http://localhost:9002/system/file/' + file.thefile.refid;
+	            imgObj.src = this.targetfile.getAsDataURL() ;
+	            imgObj.width = 300 ;
+	            imgObj.height = 200 ;
+	            imgObj.appendChild(document.createTextNode(file.thefile.filename));
+	            document.getElementById('status-msg').appendChild(imgObj);
+	        }
+	    }
+	}
+	
+	/**
+	* Event handlers
+	*/
+	
+	function preventDef(event){
+		event.preventDefault();
+		event.stopPropagation();
+	}
+	
+	function setEventHandlers(){
+	
+		var dropTarget = document.getElementById('file-drop-target');
+		addEvent(dropTarget,'dragover',preventDef, true);
+		addEvent(dropTarget,'dragenter',preventDef, true);
+		addEvent(dropTarget,'drop',handleDrop, true);
+	}
+	
+	function addEvent(obj, evType, fn, useCapture){
+	  if (obj.addEventListener){
+	    obj.addEventListener(evType, fn, useCapture);
+	    return true;
+	  } else if (obj.attachEvent){
+	      var r = obj.attachEvent("on"+evType, fn);
+	    return r;
+	  }
+	}
+	
+	function addOnLoadEvent(sFunc){
+	    if(window.addEventListener)
+	        window.addEventListener('load', sFunc, false);
+	    else if(window.attachEvent)
+	        window.attachEvent('onload', sFunc);
+	}
+	
+	addOnLoadEvent(setEventHandlers);	
+</script>
+<!--<script language="javascript" type="text/javascript" src="chrome://global/content/nsDragAndDrop.js"></script>-->
+</head>
+<body>
+
+<h4>Drag 'n' Drop file(Firefox 3.6)</h4>
+<div id="file-drop-target">drop files here</div>
+<div id="status-msg"></div>
+
+<!--
+<a href="#" ondragstart="dragGest();">
+  This text <strong>may</strong> be dragged.
+</a>
+-->
+
+</body>
+</html>

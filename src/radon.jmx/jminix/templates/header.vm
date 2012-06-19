@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>$name - JMX Console</title>    
+    
+    <style type="text/css">   
+		html, body { background: white; font-family: Tahoma, Helvetica; font-size: 8pt; margin:0px; }
+		.box { padding: 5px; border: 1px solid #CCCCCC; }
+    </style>
+    
+    </head>
+    <body>
+#if($skin!="raw")
+   <div style="margin:${margin}px;">
+    
+		<div class="box" style="margin-bottom: 5px">          
+             <b>$title</b>
+         </div>
+	    <div class="box">
+#end

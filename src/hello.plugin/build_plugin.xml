@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="builder_for_hello" default="deploy">
+
+	<property name="baseDir" value="." />
+	<property name="binDir" value="../../mybin/hello.plugin" />
+	<property name="publish.dir" value="../../publish/" />
+	<property name="publish.name" value="hello" />
+	<property name="aradon.config.file" value="./plugin-sample.xml" />
+	
+	<property name="plugin.dir" value="../../plugin/" />
+	
+	<tstamp>
+	  <format property="TODAY_MY" pattern="MM/dd/yyyy hh:mm"/>
+	</tstamp>
+	
+
+	<property name="manifest.classpath" value="./" />
+	<property name="version.number" value="0" />
+	<property name="build.number" value="1" />
+
+	<target name="publish">
+		<delete file="${publish.dir}/${publish.name}_${version.number}.${build.number}.jar"></delete>
+		<jar destfile="${publish.dir}/${publish.name}_${version.number}.${build.number}.jar">
+			<manifest>
+			  <attribute name="Built-By" value="${user.name}"/>
+			  <attribute name="Created-By" value="${user.name}"/>
+			  <attribute name="Built-Date" value="${TODAY_MY}" />
+			  <attribute name="Class-Path" value="${manifes.classpath}" />
+			  <section name="common">
+			    <attribute name="Specification-Title" value="i-on aradon platform"/>
+			    <attribute name="Specification-Version" value="${version.number}.${build.number}"/>
+			    <attribute name="Specification-Vendor" value="i-on"/>
+			  </section>
+			</manifest>
+			<fileset dir="${binDir}/" includes="net/**" />
+		</jar>
+	</target>
+	
+	
+	<target name="deploy" depends="publish">
+		<zip destfile="${publish.dir}/${publish.name}.zip">
+			<zipfileset dir="." includes="hello-plugin-config.xml" fullpath="META-INF/aradon-config.xml"/>
+			<zipfileset dir="${publish.dir}" includes="${publish.name}_${version.number}.${build.number}.jar" fullpath="lib/${publish.name}_${version.number}.${build.number}.jar" />
+			<zipfileset dir="." includes="public/img/*.jpg"/>
+		</zip>
+		<copy todir="${plugin.dir}" file="${publish.dir}/${publish.name}.zip"></copy>
+	</target>
+	
+	
+</project>

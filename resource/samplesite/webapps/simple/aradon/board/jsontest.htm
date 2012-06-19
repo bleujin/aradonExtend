@@ -1,0 +1,85 @@
+<html>
+<head>
+	<link rel=StyleSheet HREF=http://im.i-on.net/zeroboard/skin/nzeo_ver4_bbs/style.css type=text/css title=style>
+	<link rel=StyleSheet href="../../common/style/mystyle.css" type=text/css title=my_style>
+	<meta http-equiv=Content-Type content=text/html; charset="UTF-8">
+	<script language="JavaScript" src="../../common/js/jquery-1.4.2.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.common.js"></script>
+	<script language="JavaScript" src="../../common/js/aradon.sample.board.js"></script>
+</head>
+
+
+<body>
+	
+Hello....
+
+
+<textarea id="list_template" style="display:none;">
+
+
+<table border=0 cellspacing=1 cellpadding=4 width=95% >
+<tr align=center class=title>
+	<td width=50 class=title_han height=30>번호</td>
+	<td class=title_han>제목</td>
+	<td width=100 class=title_han>작성자</td>
+	<td width=65 class=title_han>작성일</td>
+	<td width=35 class=title_han><font class=title_han>조회</font></td>
+</tr>
+
+{for row in nodes.node}
+<tr align=center class=list1>
+	<td class=list_eng>@{row.regday}</td>
+	<td align=left nowrap></td> 
+	<td >@{row.moduserid}</td>
+	<td nowrap class=list_eng>[[--abcdd --]]</td>
+	<td nowrap class=list_eng></td></tr>
+{forelse}
+<tr><td colspan="5">No Searched Data.</td></tr>
+{/for}
+<tr><td colspan="5"><a href="javascript:board.goAddPage()">Add Article</a></td></tr>
+</table>
+
+<br>
+</textarea>
+	
+<script>
+
+// alert(result) ;
+
+
+
+
+
+function House(){ 
+	this.obSub = function(pobj, obj) {
+		for (var z in pobj) {
+			// if (ob.hasOwnProperty(z)) {
+			if (pobj[z] === obj) {
+				return z ;
+			}
+		}
+		return '';
+	} ;
+		
+	this.getSelfName = function(obj){
+		return this.obSub(window, obj) ;
+	}
+		
+	this.getName = function() {
+		return this.getSelfName(this) ;	
+	}
+	
+	// window[arguments.callee.caller.toString()] = this ;
+	// alert(arguments.callee) ;
+ }
+ 
+ 
+var tresMedd = new House() ;
+alert( tresMedd.getName() ) ;
+
+</script>
+
+
+</body>
+
+</html>

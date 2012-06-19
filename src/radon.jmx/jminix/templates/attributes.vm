@@ -1,0 +1,18 @@
+#set( $title="Server $request.attributes.get('server') > $encoder.decode($request.attributes.get('domain')) > $encoder.decode($request.attributes.get('mbean')) - Attributes" )
+#set( $name="$encoder.decode($request.attributes.get('mbean'))" )
+#parse("jminix/templates/header.vm")
+<dl>
+#foreach( $attribute in $items)
+<dt>
+	<a href="$encoder.encode($attribute.name)/$query">$attribute.name</a> ($attribute.type)
+</dt>
+<dd>
+	$attribute.description 
+	#if (! $attribute.writable )
+	(ro)
+	#end
+</dd>
+</li>
+#end
+</dl>
+#parse("jminix/templates/footer.vm")

@@ -1,0 +1,64 @@
+body {
+	background:#CCCCCC;
+	margin:10 ;
+}
+.iontag{
+	font-weight:bold;
+	color:orange;
+}
+.iontag_actionstart{
+	font-weight:bold;
+	color:purple;
+}
+.iontag_actionend{
+	font-weight:bold;
+	color:purple;
+}
+.tag{
+	font-weight:bold;
+	color:blue;
+}
+.endtag{
+	font-weight:bold;
+	color:blue;	
+}
+.name{
+	font-weight:bold;
+	color:maroon;
+}
+.value{
+	font-style: italic;
+	color:maroon;
+}
+.reservedWord{
+	color:blue;
+}
+.identifier{
+	color:black;
+}
+.literal{
+	color:maroon;
+}
+.separator{
+	color:navy;
+}
+.operator{
+    font-weight:bold;
+    color:navy;
+}
+.comment{
+	color:green;
+}
+.preprocessor{
+}
+.whitespace{
+}
+.text{
+}
+.reference{
+}
+.error{
+	color:red;
+}
+.unknown{
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<root version="0.1">
+	<plugin apply="ignore">
+		<id>net.bleujin.mongo</id>
+		<version>0.1</version>
+		<name>MongoDB Query Plugin</name>
+		<description></description>
+		<provider>
+			<homepage>http://www.i-on.net</homepage>
+			<developer>bleujin</developer>
+			<email>bleujin@i-on.net</email>
+		</provider>
+		<license>LGPL</license>
+		<description>
+			@apply : merge, overwrite, ignore
+		</description>
+	</plugin>
+
+	<section name="plugin.mongo">
+		<context>
+		
+		
+		</context>
+
+		<path name="query">
+			<urls>/query/{dbname}/{wsname}</urls>
+			<handler class="net.ion.radon.plugin.mongo.QueryLet" scope="request" />
+		</path>
+
+	</section>
+	
+</root>

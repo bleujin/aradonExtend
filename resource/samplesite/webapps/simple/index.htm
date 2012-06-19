@@ -1,0 +1,40 @@
+
+<html>
+
+
+<body>
+
+
+<h2>Hello Aradon Sample</h2>
+
+<ul>
+	<li><a href='/system/sequence/my.sequence?aradon.result.format=xml'>Sequence</a></li>
+		<ul>
+			<li><a href='/system/sequence/my.sequence?aradon.result.format=xml&aradon.result.method=put'>put(increase)</a></li>
+			<li><a href='/system/sequence/my.sequence/20?aradon.result.format=xml&aradon.result.method=post'>post(reset 20)</a></li>
+		</ul>
+	<li><a href='/system/utils/unique?aradon.result.format=xml'>Unique</a></li>
+	
+	<li><a href='/common/resource/config/dbconfig.json'>Query Info</a></li>
+		<ul>
+			<li><a href="/db/proc/selectAll?aradon.result.format=xml">View Query</a></li>
+			<li><a href="/db/proc/selectAll?aradon.result.format=xml&aradon.result.method=post&deptno=20">Exec Query</a></li>
+		</ul>
+
+	<li><a href='/template/velocity/string/test.bleujin/hello?aradon.result.format=xml'>Template Info</a></li>
+		<ul>
+			<li><a href='aradon/template/manager.htm'>manage template</a></li>
+			<li><a href='aradon/template/composite.htm'>composite query & template</a></li>
+		</ul>
+		
+	<li><a href='aradon/board/board.htm'>Simple Board</a></li>
+	<li><a href='aradon/upload/upload.htm'>Simple Upload</a></li>
+	<li><a href='aradon/employee/employee.htm'>Simple Employee</a></li>
+		<ul>
+			<li><a href='/sample/basic/employee?deptNo=20&aradon.result.format=xml'>Data</a></li>
+			<li><a href='/sample/basic/employee?deptNo=20&aradon.result.format=html.list'>Data With Template</a></li>
+		</ul>
+	<li><a href=#>riki</a></li>
+</ul>
+</body>
+</html>
