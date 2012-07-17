@@ -1,6 +1,7 @@
 package net.ion.radon.plugin.hello;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import net.ion.framework.parse.gson.JsonObject;
 import net.ion.radon.core.let.AbstractServerResource;
@@ -20,6 +21,7 @@ public class HelloPlugInLet extends AbstractServerResource{
 		json.put("home", getAradon().getConfig().findAradonFile(".").getCanonicalPath()) ;
 		json.put("pluginHome", getAradon().getConfig().findPlugInFile("net.bleujin.sample.hello", ".")) ;
 		json.put("param", getInnerRequest().getParameter("name")) ;
+		json.put("hostAddress", InetAddress.getLocalHost().getHostAddress()) ;
 		
 		return new StringRepresentation(json.toString());
 	}

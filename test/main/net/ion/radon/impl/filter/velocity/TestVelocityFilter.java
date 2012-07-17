@@ -12,9 +12,9 @@ import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.core.filter.HelloBean;
 import net.ion.radon.core.filter.HiFilter;
 import net.ion.radon.core.filter.IRadonFilter;
-import net.ion.radon.core.let.GetLet;
 import net.ion.radon.core.let.InnerRequest;
 import net.ion.radon.core.let.InnerResponse;
+import net.ion.radon.impl.let.HelloWorldLet;
 import net.ion.radon.impl.let.velocity.VelocityEntry;
 import net.ion.radon.impl.section.PathInfo;
 import net.ion.radon.param.ParamToBeanFilter;
@@ -41,7 +41,7 @@ public class TestVelocityFilter extends TestAradonExtend{
 		initAradon() ;
 		SectionService section = aradon.getChildService("another");
 
-		PathInfo pathInfo = PathInfo.create("mylet", "/bleujin, /bleujin/{greeting}", GetLet.class);
+		PathInfo pathInfo = PathInfo.create("mylet", "/bleujin, /bleujin/{greeting}", HelloWorldLet.class);
 		section.attach(pathInfo);
 		
 		Request request = new Request(Method.GET, "riap://component/another/bleujin") ;

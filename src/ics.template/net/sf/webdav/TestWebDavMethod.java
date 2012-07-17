@@ -32,8 +32,7 @@ public class TestWebDavMethod extends TestCase {
 
 		final IAradonRequest request = AradonClientFactory.create(aradon).createRequest("/");
 		request.addHeader("Depth", "1");
-
-		Representation r = request.multipart(Method.PROPFIND, re);
+		Representation r = request.setEntity(re).handle(Method.PROPFIND).getEntity();
 		Debug.line(r);
 
 //		aradon.startServer(9002);
