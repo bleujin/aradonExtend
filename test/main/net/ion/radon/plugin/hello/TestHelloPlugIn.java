@@ -9,6 +9,7 @@ import net.ion.radon.client.AradonClientFactory;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.AradonConfig;
 import net.ion.radon.core.AradonServer;
+import net.ion.radon.core.config.Configuration;
 
 import org.restlet.Response;
 import org.restlet.data.Method;
@@ -31,14 +32,14 @@ public class TestHelloPlugIn extends TestCase{
 		AradonServer as = new AradonServer(options);
 
 		Aradon aradon = as.getAradon() ;
-		AradonConfig aconfig =  aradon.getConfig() ;
-		assertEquals("mercury", aconfig.getId()) ;
+		Configuration aconfig = aradon.getGlobalConfig();
+		assertEquals("mercury", aconfig.server().id()) ;
 		assertEquals(new File(".").getCanonicalPath(), System.getProperty("aradon.mercury.home.dir")) ;
 		
 		assertEquals(new File("./plugin/hello").getCanonicalPath(), System.getProperty("aradon.mercury[net.bleujin.sample.hello].home.dir")) ;
 		
 		
-		File libDirFile = aradon.getConfig().findPlugInFile("net.bleujin.sample.hello", "lib") ;
+		File libDirFile = aradon.getGlobalConfig().plugin().findPlugInFile("net.bleujin.sample.hello", "lib") ;
 		assertEquals(new File("./plugin/hello/lib").getCanonicalPath(), libDirFile.getCanonicalPath()) ;
 	}
 	

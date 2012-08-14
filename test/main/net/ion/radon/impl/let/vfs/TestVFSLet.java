@@ -17,8 +17,7 @@ public class TestVFSLet extends TestCase{
 	private Aradon aradon ;
 
 	public void setUp() throws Exception{
-		aradon = new Aradon() ;
-		aradon.init("resource/config/plugin-system-vfs.xml") ;
+		aradon = Aradon.create("resource/config/plugin-system-vfs.xml") ;
 		aradon.start() ;
 	}
 	

@@ -21,7 +21,7 @@ public class TestParamFilter extends TestCase{
 
 	public void testFilter() throws Exception {
 		Aradon aradon = AradonTester.create().register("", "/test", ConfirmLet.class).getAradon() ;
-		aradon.addPreFilter(ParamToBeanFilter.create("emp", Employee.class)) ;
+		aradon.getConfig().addPreFilter(ParamToBeanFilter.create("emp", Employee.class)) ;
 		
 		AradonClient ac = AradonClientFactory.create(aradon) ;
 		IAradonRequest request = ac.createRequest("/test") ;

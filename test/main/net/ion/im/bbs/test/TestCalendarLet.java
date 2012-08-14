@@ -100,8 +100,7 @@ public class TestCalendarLet extends TestCase {
 	}
 	
 	private Response handle(String config, Request request) throws Exception {
-		Aradon aradon = new Aradon() ;
-		aradon.init(config) ;
+		Aradon aradon = Aradon.create(config) ;
 		aradon.start() ;
 		return aradon.handle(request);
 	}

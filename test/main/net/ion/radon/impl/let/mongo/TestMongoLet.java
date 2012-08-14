@@ -17,6 +17,8 @@ import net.ion.radon.TestAradonExtend;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.AradonServer;
 import net.ion.radon.core.SectionService;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.impl.section.PathInfo;
 import net.ion.radon.repository.RepositoryCentral;
@@ -36,10 +38,10 @@ public class TestMongoLet extends TestAradonExtend {
 		this.remoteDc = new DBController(AradonDBManager.create(aradon));
 		remoteDc.initSelf();
 
-		SectionService ss = aradon.attach("rdb", XMLConfig.BLANK);
+		SectionService ss = aradon.attach(SectionConfiguration.createBlank("rdb"));
 		ss.getServiceContext().putAttribute("my.mongodb.id", RepositoryCentral.create("61.250.201.157", 27017));
-		ss.attach(PathInfo.create("query", "/query", QueryLet.class));
-		ss.attach(PathInfo.create("update", "/update", UpdateLet.class));
+		ss.attach(PathConfiguration.create("query", "/query", QueryLet.class));
+		ss.attach(PathConfiguration.create("update", "/update", UpdateLet.class));
 
 		remoteDc.createUserProcedure("dept@clearWith()").execUpdate();
 	}

@@ -6,6 +6,8 @@ import net.ion.framework.util.Debug;
 import net.ion.radon.TestAradonExtend;
 import net.ion.radon.core.PageBean;
 import net.ion.radon.core.EnumClass.IMatchMode;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.impl.section.PathInfo;
 
@@ -15,7 +17,7 @@ public class TestDataNodeLet extends TestAradonExtend{
 	public void setUp() throws Exception {
 		super.setUp();
 		initAradon() ;
-		aradon.attach("core", XMLConfig.BLANK).attach(PathInfo.create("dataio", "/dataio/", IMatchMode.STARTWITH, "", RamDataStore .class)) ;
+		aradon.attach(SectionConfiguration.createBlank("core")).attach(PathConfiguration.create("dataio", "/dataio/", "", IMatchMode.STARTWITH, RamDataStore .class)) ;
 	}
 
 	public void testPath() throws Exception {

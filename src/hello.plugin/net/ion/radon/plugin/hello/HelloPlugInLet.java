@@ -18,8 +18,8 @@ public class HelloPlugInLet extends AbstractServerResource{
 		JsonObject json = new JsonObject() ;
 		json.put("greeting", "hello") ;
 		
-		json.put("home", getAradon().getConfig().findAradonFile(".").getCanonicalPath()) ;
-		json.put("pluginHome", getAradon().getConfig().findPlugInFile("net.bleujin.sample.hello", ".")) ;
+		json.put("home", getAradon().getGlobalConfig().plugin().findAradonFile(".").getCanonicalPath()) ;
+		json.put("pluginHome", getAradon().getGlobalConfig().plugin().findPlugInFile("net.bleujin.sample.hello", ".")) ;
 		json.put("param", getInnerRequest().getParameter("name")) ;
 		json.put("hostAddress", InetAddress.getLocalHost().getHostAddress()) ;
 		

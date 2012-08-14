@@ -20,7 +20,7 @@ public class IndexHtmlLet extends AbstractServerResource{
 	public Representation readHTMLFile() throws IOException{
 //		String filePath = StringUtil.defaultIfEmpty(getContext().getAttributeObject(IndexHtmlLet.class.getCanonicalName(), String.class), "src/radon.jmx/jminix/console/index.html") ;
 //		File file = new File(filePath);
-		File file = getAradon().getConfig().findPlugInFile(MyConstants.PLUGIN_ID, "jminix/console/index.html") ;
+		File file = getAradon().getGlobalConfig().plugin().findPlugInFile(MyConstants.PLUGIN_ID, "jminix/console/index.html") ;
 		String result = "not found file. confirm context attribute[" + IndexHtmlLet.class.getCanonicalName() + "]" ;
 		if (file.exists()){
 			result = FileUtils.readFileToString(file, "UTF-8") ;

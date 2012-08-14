@@ -16,6 +16,7 @@ import net.ion.radon.client.AradonClientFactory;
 import net.ion.radon.client.IAradonRequest;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.config.ConnectorConfig;
+import net.ion.radon.core.config.ConnectorConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 
 import org.restlet.data.Method;
@@ -24,9 +25,9 @@ public class TestThreadInfo extends TestCase {
 
 	public void testThreadInfo() throws Exception {
 
-		Aradon aradon = new Aradon();
-		aradon.init(XMLConfig.BLANK);
-		aradon.startServer(ConnectorConfig.makeSimpleHTTPConfig(9000));
+		Aradon aradon = Aradon.create() ;
+		
+		aradon.startServer(ConnectorConfiguration.makeSimpleHTTPConfig(9000));
 
 		AradonClient ac = AradonClientFactory.create("http://127.0.0.1:9000");
 		IAradonRequest request = ac.createRequest("/plugin.jminix/", "bleujin", "redf1");
@@ -38,6 +39,7 @@ public class TestThreadInfo extends TestCase {
 		
 		new InfinityThread().startNJoin() ;
 		Debug.line(request.get().getText());
+		ac.stop(); 
 		aradon.stop();
 		// System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(dump).toString()) ;
 	}

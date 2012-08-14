@@ -3,17 +3,19 @@ package net.ion.radon.impl.filter.velocity;
 import net.ion.framework.util.Debug;
 import net.ion.framework.util.MapUtil;
 import net.ion.radon.TestAradonExtend;
-import net.ion.radon.core.PathService;
 import net.ion.radon.core.RadonAttributeKey;
 import net.ion.radon.core.SectionService;
 import net.ion.radon.core.TreeContext;
 import net.ion.radon.core.config.Attribute;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.core.filter.HelloBean;
 import net.ion.radon.core.filter.HiFilter;
 import net.ion.radon.core.filter.IRadonFilter;
 import net.ion.radon.core.let.InnerRequest;
 import net.ion.radon.core.let.InnerResponse;
+import net.ion.radon.core.let.PathService;
 import net.ion.radon.impl.let.HelloWorldLet;
 import net.ion.radon.impl.let.velocity.VelocityEntry;
 import net.ion.radon.impl.section.PathInfo;
@@ -41,8 +43,7 @@ public class TestVelocityFilter extends TestAradonExtend{
 		initAradon() ;
 		SectionService section = aradon.getChildService("another");
 
-		PathInfo pathInfo = PathInfo.create("mylet", "/bleujin, /bleujin/{greeting}", HelloWorldLet.class);
-		section.attach(pathInfo);
+		section.attach(PathConfiguration.create("mylet", "/bleujin, /bleujin/{greeting}", HelloWorldLet.class));
 		
 		Request request = new Request(Method.GET, "riap://component/another/bleujin") ;
 		Response response = aradon.handle(request) ;
@@ -51,38 +52,11 @@ public class TestVelocityFilter extends TestAradonExtend{
 		Debug.debug(response.getEntityAsText()) ;
 	}
 	
-	public void testPathFilter() throws Exception {
-		initAradon();
-		SectionService section = aradon.getChildService("another");
-		PathService pservice = section.getChildService("hello") ;
-		pservice.addPreFilter(new ParamToBeanFilter("mybean", "net.ion.radon.core.filter.HelloBean")) ;
-		pservice.addPreFilter(new HiFilter()) ;
-
-		assertEquals(2, pservice.getPreFilters().size()) ;
-		
-		Request request = new Request(Method.GET, "riap://component/another/hello?greeting=Hello&name=bleujin");
-		Response response = aradon.handle(request);
-		
-		InnerRequest ireq = ((InnerResponse)Response.getCurrent()).getInnerRequest() ;
-		
-		assertEquals(true, pservice.getServiceContext() == ireq.getContext().getParentContext()) ;
-		
-		TreeContext requestContext = (TreeContext) response.getRequest().getAttributes().get(RadonAttributeKey.REQUEST_CONTEXT);
-		assertEquals(true, requestContext == ireq.getContext()) ;
-		
-		HelloBean bean = requestContext.getSelfAttributeObject("mybean", HelloBean.class);
-		Debug.debug(bean) ;
-		
-		
-		assertEquals("bleujin", bean.getName()) ;
-	}
-	
-	
 	public void testVelocity() throws Exception {
 		initAradon() ;
-		SectionService sec = aradon.attach("test", XMLConfig.BLANK) ;
+		SectionService sec = aradon.attach(SectionConfiguration.createBlank("test")) ;
 
-		sec.attach(PathInfo.create("mylet", "/datas", TestDataLet.class));
+		sec.attach(PathConfiguration.create("mylet", "/datas", TestDataLet.class));
 		
 		
 		PathService pservice = sec.getChildService("mylet");
@@ -96,9 +70,9 @@ public class TestVelocityFilter extends TestAradonExtend{
 
 
 		VelocityEntry entry = new VelocityEntry(configPath, toolboxConfigPath) ;
-		pservice.putAttribute(entryId, entry) ;
+		pservice.getServiceContext().putAttribute(entryId, entry) ;
 		
-		pservice.addAfterFilter(filter) ;
+		pservice.getConfig().addAfterFilter(filter) ;
 
 		
 		Request request = new Request(Method.GET, "riap://component/test/datas?aradon.result.format=html.hello&id=bleujin");

@@ -3,6 +3,8 @@ package net.ion.radon.impl.let.core;
 import net.ion.framework.util.Debug;
 import net.ion.radon.TestAradonExtend;
 import net.ion.radon.core.SectionService;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.impl.section.PathInfo;
 
@@ -18,8 +20,8 @@ public class TestPastRamDataIO extends TestAradonExtend{
 		super.setUp();
 		
 		initAradon();
-		SectionService section = aradon.attach("core", XMLConfig.BLANK);
-		section.attach(PathInfo.create("dataio", "/dataio/{groupid}, /dataio/{groupid}/{id}" , RamDataStore.class)) ;
+		SectionService section = aradon.attach(SectionConfiguration.createBlank("core"));
+		section.attach(PathConfiguration.create("dataio", "/dataio/{groupid}, /dataio/{groupid}/{id}" , RamDataStore.class)) ;
 	}
 	
 	public void testAdd() throws Exception {

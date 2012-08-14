@@ -5,6 +5,8 @@ import java.util.Properties;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.SectionService;
 import net.ion.radon.core.EnumClass.IMatchMode;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.impl.section.PathInfo;
 
@@ -26,25 +28,24 @@ public class MyApp {
 
 	public static void main(String[] args) throws Exception {
 
-		Aradon aradon = new Aradon();
-		aradon.init(XMLConfig.BLANK);
+		Aradon aradon = Aradon.create() ;
 
 		aradon.getServiceContext().putAttribute(MyConstants.VELOCITY_ENGINE_CONTEX_KEY, createVelocityEngine());
 
-		SectionService ss = aradon.attach("plugin.jminix", XMLConfig.BLANK);
-		ss.attach(PathInfo.create("index.html", "/", IndexHtmlLet.class));
-		ss.attach(PathInfo.create("js", "/js/", IMatchMode.STARTWITH, "js", DirLet.class));
-		ss.attach(PathInfo.create("servers", "/servers/", ServersResource.class));
-		ss.attach(PathInfo.create("server", "/servers/{server}/", ServerResource.class));
-		ss.attach(PathInfo.create("domains", "/servers/{server}/domains/", DomainsResource.class));
-		ss.attach(PathInfo.create("domain", "/servers/{server}/domains/{domain}/", DomainResource.class));
-		ss.attach(PathInfo.create("mbeans", "/servers/{server}/domains/{domain}/mbeans/", MBeansResource.class));
-		ss.attach(PathInfo.create("mbean", "/servers/{server}/domains/{domain}/mbeans/{mbean}/", MBeanResource.class));
-		ss.attach(PathInfo.create("attributes", "/servers/{server}/domains/{domain}/mbeans/{mbean}/attributes/", AttributesResource.class));
-		ss.attach(PathInfo.create("attribute", "/servers/{server}/domains/{domain}/mbeans/{mbean}/attributes/{attribute}/", AttributeResource.class));
-		ss.attach(PathInfo.create("attribute_query", "/servers/{server}/domains/{domain}/mbeans/{mbean}/attributes/{attribute}/{query}", AttributeResource.class));
-		ss.attach(PathInfo.create("operations", "/servers/{server}/domains/{domain}/mbeans/{mbean}/operations/", OperationsResource.class));
-		ss.attach(PathInfo.create("operation", "/servers/{server}/domains/{domain}/mbeans/{mbean}/operations/{operation}", OperationResource.class));
+		SectionService ss = aradon.attach(SectionConfiguration.createBlank("plugin.jminix"));
+		ss.attach(PathConfiguration.create("index.html", "/", IndexHtmlLet.class));
+		ss.attach(PathConfiguration.create("js", "/js/", "js", IMatchMode.STARTWITH, DirLet.class));
+		ss.attach(PathConfiguration.create("servers", "/servers/", ServersResource.class));
+		ss.attach(PathConfiguration.create("server", "/servers/{server}/", ServerResource.class));
+		ss.attach(PathConfiguration.create("domains", "/servers/{server}/domains/", DomainsResource.class));
+		ss.attach(PathConfiguration.create("domain", "/servers/{server}/domains/{domain}/", DomainResource.class));
+		ss.attach(PathConfiguration.create("mbeans", "/servers/{server}/domains/{domain}/mbeans/", MBeansResource.class));
+		ss.attach(PathConfiguration.create("mbean", "/servers/{server}/domains/{domain}/mbeans/{mbean}/", MBeanResource.class));
+		ss.attach(PathConfiguration.create("attributes", "/servers/{server}/domains/{domain}/mbeans/{mbean}/attributes/", AttributesResource.class));
+		ss.attach(PathConfiguration.create("attribute", "/servers/{server}/domains/{domain}/mbeans/{mbean}/attributes/{attribute}/", AttributeResource.class));
+		ss.attach(PathConfiguration.create("attribute_query", "/servers/{server}/domains/{domain}/mbeans/{mbean}/attributes/{attribute}/{query}", AttributeResource.class));
+		ss.attach(PathConfiguration.create("operations", "/servers/{server}/domains/{domain}/mbeans/{mbean}/operations/", OperationsResource.class));
+		ss.attach(PathConfiguration.create("operation", "/servers/{server}/domains/{domain}/mbeans/{mbean}/operations/{operation}", OperationResource.class));
 
 //		ss.attach(PathInfo.create("index", "/index.html", IndexHtmlLet.class));
 //		ss.getServiceContext().putAttribute("base.dir", "src/radon.jmx/jminix/") ;

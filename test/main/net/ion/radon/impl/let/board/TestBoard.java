@@ -12,6 +12,8 @@ import net.ion.radon.TestAradonExtend;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.AradonServer;
 import net.ion.radon.core.SectionService;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.impl.section.PathInfo;
 import net.ion.radon.repository.RepositoryCentral;
@@ -39,13 +41,13 @@ public class TestBoard extends TestAradonExtend{
 
 
 	private void aradon_init(Aradon aradon) throws ConfigurationException, InstanceCreationException, UnknownHostException {
-		SectionService board = aradon.attach("board", XMLConfig.BLANK);
-		board.attach(PathInfo.create("list", "/list/{boardid}, /list/{boardid}/{listnum}, /list/{boardid}/{listnum}/{pageno}", ListLet.class));
-		board.attach(PathInfo.create("article_add", "/add/{boardid}, /add/{boardid}/{no}" , AddLet.class));
-		board.attach(PathInfo.create("article_view", "/view/{boardid}/{no}" , ViewLet.class));
-		board.attach(PathInfo.create("article_edit", "/edit/{boardid}/{no}", EditLet.class));
-		board.attach(PathInfo.create("article_delete", "/delete/{boardid}/{no}", DeleteLet.class));
-		board.attach(PathInfo.create("sequence", "/sequence/{boardid}", SequenceLet.class)); 
+		SectionService board = aradon.attach(SectionConfiguration.createBlank("board"));
+		board.attach(PathConfiguration.create("list", "/list/{boardid}, /list/{boardid}/{listnum}, /list/{boardid}/{listnum}/{pageno}", ListLet.class));
+		board.attach(PathConfiguration.create("article_add", "/add/{boardid}, /add/{boardid}/{no}" , AddLet.class));
+		board.attach(PathConfiguration.create("article_view", "/view/{boardid}/{no}" , ViewLet.class));
+		board.attach(PathConfiguration.create("article_edit", "/edit/{boardid}/{no}", EditLet.class));
+		board.attach(PathConfiguration.create("article_delete", "/delete/{boardid}/{no}", DeleteLet.class));
+		board.attach(PathConfiguration.create("sequence", "/sequence/{boardid}", SequenceLet.class)); 
 		
 		RepositoryCentral rc = RepositoryCentral.create("61.250.201.157", 27017) ;
 		Session session =  rc.testLogin("board") ;

@@ -7,6 +7,8 @@ import net.ion.radon.TestAradonExtend;
 import net.ion.radon.client.HttpMultipartEntity;
 import net.ion.radon.core.SectionService;
 import net.ion.radon.core.TreeContext;
+import net.ion.radon.core.config.PathConfiguration;
+import net.ion.radon.core.config.SectionConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 import net.ion.radon.impl.let.common.SendMailLet;
 import net.ion.radon.impl.section.PathInfo;
@@ -28,9 +30,9 @@ public class TestSendMailLet extends TestAradonExtend{
 		super.setUp();
 		initAradon() ;
 		
-		SectionService section = aradon.attach("test", XMLConfig.BLANK) ;
+		SectionService section = aradon.attach(SectionConfiguration.createBlank("test")) ;
 
-		section.attach(PathInfo.create("sendmail", "/sendmail", SendMailLet.class)) ;
+		section.attach(PathConfiguration.create("sendmail", "/sendmail", SendMailLet.class)) ;
 		TreeContext scontext = section.getServiceContext() ;
 		scontext.putAttribute("smtp.config.host", "smtp.i-on.net") ;
 		scontext.putAttribute("smtp.config.port", "25") ;

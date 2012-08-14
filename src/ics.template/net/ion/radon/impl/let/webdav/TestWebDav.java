@@ -3,11 +3,16 @@ package net.ion.radon.impl.let.webdav;
 import java.io.File;
 import java.util.Date;
 
+import junit.framework.TestCase;
+
 import net.ion.framework.util.DateUtil;
 import net.ion.framework.util.Debug;
+import net.ion.framework.util.InstanceCreationException;
 import net.ion.radon.TestAradonExtend;
+import net.ion.radon.core.Aradon;
 import net.ion.radon.core.RadonAttributeKey;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.Form;
@@ -17,7 +22,7 @@ import org.restlet.data.Status;
 import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.StringRepresentation;
 
-public class TestWebDav extends TestAradonExtend{
+public class TestWebDav extends TestCase{
 
 	public void testProfind() throws Exception {
 		final Request request = new Request(Method.PROPFIND, "riap://component/webdav/afield/Updates");
@@ -34,7 +39,7 @@ public class TestWebDav extends TestAradonExtend{
 		StringRepresentation re = new StringRepresentation(text) ;
 		// request.setEntity(re); 
 		
-		Response response = super.handle("resource/config/plugin-system-vfs.xml", request);
+		Response response = handle("resource/config/plugin-system-vfs.xml", request);
 
 		Debug.debug(response.getEntityAsText()) ;
 	}
@@ -111,6 +116,10 @@ public class TestWebDav extends TestAradonExtend{
 //		Debug.debug(getResponse.getEntityAsText()) ;
 	}
 	
+	private Response handle(String configPath, Request request) throws ConfigurationException, InstanceCreationException {
+		return Aradon.create(configPath).handle(request) ;
+	}
+
 	public void testCalendar() throws Exception {
 		Debug.debug(DateUtil.toHTTPDateFormat(new Date())) ;
 		

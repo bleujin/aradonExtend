@@ -1,20 +1,23 @@
 package net.ion.radon.impl.let.webdav;
 
+import junit.framework.TestCase;
 import net.ion.framework.util.Debug;
 import net.ion.framework.util.IOUtil;
 import net.ion.framework.util.InfinityThread;
+import net.ion.framework.util.InstanceCreationException;
 import net.ion.radon.TestAradonExtend;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.impl.let.vfs.VFSEntry;
 import net.ion.radon.util.AradonTester;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
 import org.restlet.representation.StringRepresentation;
 
-public class TestWebDavLet extends TestAradonExtend{
+public class TestWebDavLet extends TestCase{
 
 	
 	public void runVFSAradon() throws Exception {
@@ -33,6 +36,10 @@ public class TestWebDavLet extends TestAradonExtend{
 		Debug.debug(IOUtil.toString(response.getEntity().getStream())) ;
 	}
 	
+	private Response handle(String configPath, Request request) throws ConfigurationException, InstanceCreationException {
+		return Aradon.create(configPath).handle(request);
+	}
+
 	public void testPropfind() throws Exception {
 		Request request = new Request(Method.PROPFIND, "http://localhost:9002/webdav/afield/Admin") ;
 		
@@ -73,7 +80,7 @@ public class TestWebDavLet extends TestAradonExtend{
 //		Debug.line(request.getEntityAsText()) ;
 		
 		// Response response = handle("resource/config/plugin-system-vfs.xml", request) ;
-		Response response = handle(request) ;
+		Response response = handle(body, request) ;
 		Debug.debug(IOUtil.toString(response.getEntity().getStream())) ;
 	}
 	
