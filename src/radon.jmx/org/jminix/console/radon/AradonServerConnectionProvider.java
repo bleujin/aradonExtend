@@ -8,6 +8,7 @@ import javax.management.MBeanServerConnection;
 import javax.management.MBeanServerFactory;
 import javax.management.ObjectName;
 
+import net.ion.framework.util.Debug;
 import net.ion.framework.util.ListUtil;
 import net.ion.radon.core.Aradon;
 import net.ion.radon.core.IService;
@@ -61,8 +62,9 @@ public class AradonServerConnectionProvider extends AbstractListServerConnection
 
 				server.registerMBean(new ContextMBean(sec, sec.getServiceContext()), new ObjectName("net.ion.radon.section:Name=" + sec.getName() + "Context,serverType=net.ion.radon.core.TreeContext"));
 				for (PathService ps : sec.getChildren()) {
-					server.registerMBean(new ServiceMBean(ps), new ObjectName("net.ion.radon.section.path-" + sec.getName() + ":Name=" + ps.getName() + ",serverType=net.ion.radon.core.PathService"));
-					server.registerMBean(new ContextMBean(ps, ps.getServiceContext()), new ObjectName("net.ion.radon.section.path-" + ps.getName() + ":Name=" + ps.getName() + "Context,serverType=net.ion.radon.core.TreeContext"));
+					server.registerMBean(new ServiceMBean(ps), 							new ObjectName("net.ion.radon.path-" + sec.getName() + ":Name=" + ps.getName() + ",serverType=net.ion.radon.core.PathService"));
+					Debug.line(new ObjectName("net.ion.radon.path-" + ps.getName() + ":Name=" + ps.getName() + "Context,serverType=net.ion.radon.core.TreeContext")) ;
+					server.registerMBean(new ContextMBean(ps, ps.getServiceContext()),	new ObjectName("net.ion.radon.path-" + ps.getName() + ":Name=" + sec.getName() + "." + ps.getName() + "Context,serverType=net.ion.radon.core.TreeContext"));
 				}
 			}
 			server.registerMBean(new ServiceMBean(aradon), new ObjectName("net.ion.radon.core:Name=" + aradon.getGlobalConfig().server().id() + ",serverType=net.ion.radon.core.Aradon"));

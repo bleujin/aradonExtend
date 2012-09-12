@@ -22,7 +22,8 @@ public class DirLet extends AbstractServerResource{
 //		String filePath = PathMaker.getFilePath(getContext().getAttributeObject("base.dir", "./", String.class), "js/"+ getRequest().getResourceRef().getRemainingPart()) ;
 //		File file = new File(filePath) ;
 
-		File file = getAradon().getGlobalConfig().plugin().findPlugInFile(MyConstants.PLUGIN_ID, "jminix/js/" + getRequest().getResourceRef().getRemainingPart()) ;
+		String remainPart = StringUtil.split(getRequest().getResourceRef().getRemainingPart(), "?")[0];
+		File file = getAradon().getGlobalConfig().plugin().findPlugInFile(MyConstants.PLUGIN_ID, "jminix/js/" + remainPart ) ;
 		
 		if (! file.exists()) throw new ResourceException(Status.CLIENT_ERROR_NOT_FOUND, getRequest().getResourceRef().getPath()) ; 
 

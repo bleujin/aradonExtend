@@ -14,13 +14,15 @@
 		<license>LGPL</license>
 	</plugin>
 
-	<context>
-		<configured-object id="org.jminix.console.radon.RegisterBean" scope="application">
- 			<class-name>org.jminix.console.radon.RegisterBean</class-name>
- 		</configured-object>
-	</context>
-
 	<section name="plugin.jminix">
+
+		<context>
+			<configured-object id="org.jminix.console.radon.RegisterBean" scope="application">
+	 			<class-name>org.jminix.console.radon.RegisterBean</class-name>
+	 		</configured-object>
+		</context>
+
+
 		<prefilter class="net.ion.radon.core.security.ChallengeAuthenticator">
 			<configured-object>
 				<class-name>net.ion.radon.core.security.ChallengeAuthenticator</class-name>
@@ -52,7 +54,7 @@
 			<handler class="org.jminix.console.resource.IndexHtmlLet" scope="request" />
 		</path>
 		<path name="js" >
-			<urls matchmode="STARTWITH">/js/</urls>
+			<urls matchMode="STARTWITH">/js/</urls>
 			<handler class="org.jminix.console.resource.DirLet" scope="request" />
 		</path>
 	

@@ -13,7 +13,7 @@
 		<path name="ghello">
 			<urls>/ghello, /ghello/{greeting}</urls>
 			<description>Default</description>
-			<handler class="net.ion.radon.impl.let.StringLet" scope="request" />
+			<handler class="net.ion.radon.impl.let.HelloWorldLet" scope="request" />
 			
 			<afterfilter lang="groovy" script-source="groovy-test/groovy/ScriptFilter.groovy">
 			</afterfilter>
@@ -30,7 +30,7 @@
 	</section>
 
 
-	<plugin includepath="plugin/;" home="C:/Users/bleujin/workspace/AradonExtend/plugin/">
+	<plugin includepath="plugin/;">
 	</plugin>
 	
 	<context>

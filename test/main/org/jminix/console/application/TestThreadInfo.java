@@ -11,18 +11,39 @@ import net.ion.framework.parse.gson.JsonParser;
 import net.ion.framework.parse.gson.JsonPrimitive;
 import net.ion.framework.util.Debug;
 import net.ion.framework.util.InfinityThread;
+import net.ion.radon.Options;
 import net.ion.radon.client.AradonClient;
 import net.ion.radon.client.AradonClientFactory;
 import net.ion.radon.client.IAradonRequest;
 import net.ion.radon.core.Aradon;
+import net.ion.radon.core.AradonServer;
 import net.ion.radon.core.config.ConnectorConfig;
 import net.ion.radon.core.config.ConnectorConfiguration;
 import net.ion.radon.core.config.XMLConfig;
 
+import org.restlet.Response;
 import org.restlet.data.Method;
 
 public class TestThreadInfo extends TestCase {
 
+	public void testRun() throws Exception {
+		Options options = new Options(new String[] { "-config:./resource/config/aradon-config.xml", "-port:9040" });
+		AradonServer as = new AradonServer(options);
+
+		Aradon aradon = as.getAradon() ;
+		
+		
+		Debug.line(aradon.getChildren()) ;
+		
+		AradonClient ac = AradonClientFactory.create(aradon) ;
+
+		Response res = ac.createRequest("/plugin.jminix/js/dojotoolkit/dojox/grid/resources/Grid.css", "bleujin", "redf1").handle(Method.GET) ;
+		assertEquals(200, res.getStatus().getCode()) ; 
+
+		as.start() ;
+		new InfinityThread().startNJoin() ;
+	}
+	
 	public void testThreadInfo() throws Exception {
 
 		Aradon aradon = Aradon.create() ;

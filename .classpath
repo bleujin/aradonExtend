@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry combineaccessrules="false" kind="src" path="/Aradon"/>
 	<classpathentry kind="src" output="mybin/radon.board" path="src/radon.board"/>
 	<classpathentry kind="src" output="mybin/test" path="test/main"/>
 	<classpathentry kind="src" output="mybin/radon.sample" path="src/radon.sample"/>

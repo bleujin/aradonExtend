@@ -3,6 +3,8 @@ package net.ion.radon.plugin.hello;
 import java.io.File;
 
 import junit.framework.TestCase;
+import net.ion.framework.util.Debug;
+import net.ion.framework.util.InfinityThread;
 import net.ion.radon.Options;
 import net.ion.radon.client.AradonClient;
 import net.ion.radon.client.AradonClientFactory;
@@ -20,9 +22,16 @@ public class TestHelloPlugIn extends TestCase{
 		AradonServer as = new AradonServer(options);
 
 		Aradon aradon = as.getAradon() ;
+		
+		
+		Debug.line(aradon.getConfig().sections().sections(), aradon.getChildren()) ;
+		
 		AradonClient ac = AradonClientFactory.create(aradon) ;
-		Response res = ac.createRequest("/sample/hello").handle(Method.GET) ;
+		Response res = ac.createRequest("/plugin.hello/hello").handle(Method.GET) ;
 		assertEquals(200, res.getStatus().getCode()) ; 
+		
+		as.start() ;
+		new InfinityThread().startNJoin() ;
 	}
 	
 	
@@ -32,10 +41,10 @@ public class TestHelloPlugIn extends TestCase{
 
 		Aradon aradon = as.getAradon() ;
 		Configuration aconfig = aradon.getGlobalConfig();
-		assertEquals("mercury", aconfig.server().id()) ;
-		assertEquals(new File(".").getCanonicalPath(), System.getProperty("aradon.mercury.home.dir")) ;
+		assertEquals("emanon", aconfig.server().id()) ;
+		assertEquals(new File(".").getCanonicalPath(), System.getProperty("aradon.emanon.home.dir")) ;
 		
-		assertEquals(new File("./plugin/hello").getCanonicalPath(), System.getProperty("aradon.mercury[net.bleujin.sample.hello].home.dir")) ;
+		assertEquals(new File("./plugin/hello").getCanonicalPath(), System.getProperty("aradon.emanon[net.bleujin.sample.hello].home.dir")) ;
 		
 		
 		File libDirFile = aradon.getGlobalConfig().plugin().findPlugInFile("net.bleujin.sample.hello", "lib") ;
