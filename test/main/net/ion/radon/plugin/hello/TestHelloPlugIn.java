@@ -24,7 +24,7 @@ public class TestHelloPlugIn extends TestCase{
 		Aradon aradon = as.getAradon() ;
 		
 		
-		Debug.line(aradon.getConfig().sections().sections(), aradon.getChildren()) ;
+		Debug.line(aradon.getConfig().sections(), aradon.getChildren()) ;
 		
 		AradonClient ac = AradonClientFactory.create(aradon) ;
 		Response res = ac.createRequest("/plugin.hello/hello").handle(Method.GET) ;

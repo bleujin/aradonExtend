@@ -59,7 +59,7 @@ public class TestVelocityFilter extends TestAradonExtend{
 		sec.attach(PathConfiguration.create("mylet", "/datas", TestDataLet.class));
 		
 		
-		PathService pservice = sec.getChildService("mylet");
+		PathService pservice = (PathService) sec.getChildService("mylet");
 		
 		final String entryId = "aradon.template.velocity.entry";
 		IRadonFilter filter = new VelocityFilter(entryId) ;
