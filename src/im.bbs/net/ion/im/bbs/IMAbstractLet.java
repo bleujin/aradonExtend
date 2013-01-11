@@ -34,7 +34,7 @@ public abstract class IMAbstractLet extends AbstractLet {
 	}
 	
 	protected Representation rowsToRepresentation(Rows rows) throws SQLException {
-		List<Map<String, ?>> datas = (List<Map<String, ?>>) (rows.toHandle(new MapListHandler(new JSONRowProcessor())));
+		List<Map<String, ?>> datas = (List<Map<String, ? extends Object>>) (rows.toHandle(new MapListHandler(new JSONRowProcessor())));
 		return toRepresentation(datas);		
 	}
 	

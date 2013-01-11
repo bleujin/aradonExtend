@@ -37,7 +37,7 @@ public class QueryHandler {
 				IRequest request = IRequest.create(MapUtil.create("page", query.getPage()));
 				final ScreenInfo screenInfo = rows.getScreenInfo();
 				IResponse response = IResponse.create(MapUtil.create("screen", screenInfo.toString()));
-				List<Map<String, ?>> datas = (List<Map<String, ?>>) (rows.toHandle(new MapListHandler(new JSONRowProcessor())));
+				List<Map<String, ?>> datas = (List<Map<String, ? extends Object>>) (rows.toHandle(new MapListHandler(new JSONRowProcessor())));
 
 				return MapListRepresentationHandler.create(handler, request, datas, response, context).toRepresentation();
 			} else {
