@@ -18,11 +18,8 @@
 	<classpathentry kind="lib" path="extendlib/radon.template/commons-digester-1.8.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.template/org.restlet.ext.velocity.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.template/velocity_fat.jar"/>
-	<classpathentry kind="lib" path="extendlib/radon.system/core_lucene_fat.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.system/jdbc_fat.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.system/jdom.jar"/>
-	<classpathentry kind="lib" path="extendlib/radon.system/koreananalyzer-20100525.jar"/>
-	<classpathentry kind="lib" path="extendlib/radon.system/lucene_fat.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.system/mail_fat.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.system/monitor_fat.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.system/search_export.jar"/>
@@ -39,7 +36,6 @@
 	<classpathentry kind="lib" path="extendlib/radon.system/commons-vfs2-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/iframework_2.3.jar"/>
 	<classpathentry kind="lib" path="lib/mongonode_0.3.jar"/>
-	<classpathentry kind="lib" path="lib/isearcher_2.2.jar"/>
 	<classpathentry kind="lib" path="extendlib/radon.sample/h2-1.3.164.jar"/>
 	<classpathentry kind="lib" path="extendlib/ics.template/annotations-1.3.9.jar"/>
 	<classpathentry kind="lib" path="extendlib/ics.template/org.restlet.ext.xml.jar"/>
@@ -48,6 +44,9 @@
 	<classpathentry kind="lib" path="extendlib/radon.amazon/jets3t-0.9.0.jar"/>
 	<classpathentry kind="lib" path="extendlib/rest_fat.jar"/>
 	<classpathentry kind="lib" path="lib/aradon_0.9.jar"/>
+	<classpathentry kind="lib" path="lib/isearcher_3.0.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/search_util_fat.jar"/>
+	<classpathentry kind="lib" path="extendlib/radon.system/search362_fat.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk5_22"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
