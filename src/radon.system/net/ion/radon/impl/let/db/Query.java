@@ -62,7 +62,7 @@ public class Query {
 	}
 
 	public IParameterQueryable createBatchQueryable(IDBController dc, Map<String, Object> uparams) {
-		IBatchQueryable upt = dc.createBatchParameterQuery(dc, getSql()) ;
+		IBatchQueryable upt = dc.createBatchParameterQuery(getSql()) ;
 		for(Param param : getParameter()){
 			Object object =  uparams.get(param.getName());
 			upt.addBatchParameter(param.getName(), ListUtil.toArray(object) , ProcedureHelper.getType(param.getType()));
